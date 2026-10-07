@@ -102,7 +102,7 @@
                 {% for team in teams %}
 
                 <a href="{% url 'team_detail' team.slug %}"
-                   class="team-card">
+                class="team-card team-{{ team.slug }}">
 
                     <!-- Card number -->
                     <div class="team-card-number">

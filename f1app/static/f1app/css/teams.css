@@ -146,6 +146,97 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.025);
 }
 
+/* =====================================================
+   TEAM-SPECIFIC CAR GLOWS
+===================================================== */
+
+.team-mclaren {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(255, 128, 0, 0.20),
+        transparent 68%
+    );
+}
+
+.team-mercedes {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(0, 210, 190, 0.20),
+        transparent 68%
+    );
+}
+
+.team-red-bull-racing {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(30, 70, 255, 0.20),
+        transparent 68%
+    );
+}
+
+.team-ferrari {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(225, 6, 0, 0.22),
+        transparent 68%
+    );
+}
+
+.team-williams {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(0, 110, 255, 0.20),
+        transparent 68%
+    );
+}
+
+.team-racing-bulls {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(60, 120, 255, 0.20),
+        transparent 68%
+    );
+}
+
+.team-aston-martin {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(0, 120, 100, 0.22),
+        transparent 68%
+    );
+}
+
+.team-haas {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(210, 210, 215, 0.16),
+        transparent 68%
+    );
+}
+
+.team-audi {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(190, 190, 200, 0.18),
+        transparent 68%
+    );
+}
+
+.team-alpine {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(20, 140, 255, 0.22),
+        transparent 68%
+    );
+}
+
+.team-cadillac {
+    --team-glow: radial-gradient(
+        circle at center,
+        rgba(190, 190, 195, 0.18),
+        transparent 68%
+    );
+}
 
 /* =====================================================
    CARD NUMBER
@@ -184,12 +275,7 @@
 
     padding: 40px 25px 15px;
 
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(225, 6, 0, 0.07),
-            transparent 65%
-        );
+    background: var(--team-glow);
 
     border-bottom: 1px solid var(--border);
 }
@@ -216,6 +302,32 @@
     );
 }
 
+.team-card .team-car-container {
+    position: relative;
+    isolation: isolate;
+}
+
+.team-card .team-car-container::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: var(--team-glow);
+
+    opacity: 0.8;
+
+    z-index: -1;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.team-card:hover .team-car-container::before {
+    opacity: 1;
+    transform: scale(1.08);
+}
 
 /* Car */
 
