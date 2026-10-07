@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teams | F1 Racing & Analytics</title>
+
+    <!-- Main website CSS -->
+    <link rel="stylesheet" href="{% static 'f1app/css/style.css' %}">
+
+    <!-- Teams page CSS -->
+    <link rel="stylesheet" href="{% static 'f1app/css/teams.css' %}">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'f1app/images/f1-logo.png' %}" alt="F1 Racing & Analytics">
+        </a>
+
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'drivers' %}">Drivers</a>
+            <a href="{% url 'teams' %}" class="active">Teams</a>
+            <a href="{% url 'races' %}">Races</a>
+            <a href="{% url 'standings' %}">Standings</a>
+            <a href="{% url 'analytics' %}">Analytics</a>
+
+            {% if user.is_authenticated %}
+                <span class="username-display">
+                    {{ user.username }}
+                </span>
+
+                <a href="{% url 'logout' %}" class="login-link">
+                    Logout
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">
+                    Login
+                </a>
+            {% endif %}
+        </nav>
+
+    </header>
+
+
+    <!-- ================= TEAMS PAGE ================= -->
+
+    <main>
+
+        <section class="teams-hero">
+
+            <div class="teams-hero-label">
+                F1 / CONSTRUCTORS
+            </div>
+
+            <h1>
+                THE <span>TEAMS</span>
+            </h1>
+
+            <p>
+                Explore the teams competing in the Formula 1 World Championship.
+                Select a team to view its profile, drivers, car and statistics.
+            </p>
+
+        </section>
+
+
+        <!-- ================= TEAM GRID ================= -->
+
+        <section class="teams-section">
+
+            <div class="teams-heading">
+
+                <div>
+                    <div class="section-label">
+                        2026 GRID
+                    </div>
+
+                    <h2>
+                        CONSTRUCTORS
+                    </h2>
+                </div>
+
+                <div class="teams-count">
+                    <span>11</span> TEAMS
+                </div>
+
+            </div>
+
+
+            <div class="teams-grid">
+
+                {% for team in teams %}
+
+                <a href="{% url 'team_detail' team.slug %}"
+                   class="team-card">
+
+                    <!-- Card number -->
+                    <div class="team-card-number">
+                        {{ forloop.counter|stringformat:"02d" }}
+                    </div>
+
+                    <!-- Car image -->
+                    <div class="team-car-container">
+
+                        <img
+                            src="{% static team.car_image %}"
+                            alt="{{ team.name }} Formula 1 car"
+                            class="team-car"
+                        >
+
+                    </div>
+
+                    <!-- Team information -->
+                    <div class="team-card-info">
+
+                        <div>
+                            <span class="team-code">
+                                {{ team.short_name }}
+                            </span>
+
+                            <h3>
+                                {{ team.name }}
+                            </h3>
+                        </div>
+
+                        <span class="team-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-about">
+
+                <div class="footer-logo">
+                    <span>F1</span>
+                    RACING & ANALYTICS
+                </div>
+
+                <p>
+                    A Formula 1 racing and analytics platform
+                    built with Django.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'drivers' %}">Drivers</a>
+                <a href="{% url 'teams' %}">Teams</a>
+                <a href="{% url 'races' %}">Races</a>
+                <a href="{% url 'standings' %}">Standings</a>
+                <a href="{% url 'analytics' %}">Analytics</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 F1 Racing & Analytics
+            </span>
+
+            <span>
+                DATA / RACING / ANALYTICS
+            </span>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
