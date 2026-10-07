@@ -1,0 +1,1260 @@
+/* =====================================================
+   FONTS
+   Titillium Web = the geometric sans used across real FIA/F1
+   broadcast graphics. JetBrains Mono is used only for numeric
+   readouts (stats, timers, points) so data feels instrumented.
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #0b0b0d;
+    --surface: #141417;
+    --surface-light: #1c1c21;
+
+    --text: #f5f5f5;
+    --text-muted: #9b9ba3;
+    --text-dim: #66666d;
+
+    --accent: #e10600;
+    --accent-hover: #ff1e17;
+    --accent-dim: rgba(225, 6, 0, 0.1);
+
+    --border: #29292e;
+    --border-light: #38383e;
+
+    --font-body: 'Titillium Web', Arial, Helvetica, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+    --max-width: 1200px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+body {
+    font-family: var(--font-body);
+
+    background: var(--background);
+    color: var(--text);
+
+    line-height: 1.6;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Shared technical/mono label used for data readouts everywhere */
+.mono {
+    font-family: var(--font-mono);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--border);
+    background: rgba(11, 11, 13, 0.95);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 70px;
+    width: auto;
+    display: block;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.navbar a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--text);
+}
+
+.navbar a.login-link {
+    color: var(--text);
+    padding: 8px 18px;
+    border: 1px solid var(--border-light);
+}
+
+.navbar a.login-link:hover,
+.navbar a.login-link.active {
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.username-display {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 15px;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+
+    padding: 90px 5% 70px;
+
+    max-width: var(--max-width);
+    margin: auto;
+}
+
+.hero-label {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(48px, 6.5vw, 84px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    color: var(--accent);
+}
+
+.hero-description {
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 480px;
+    margin-bottom: 40px;
+}
+
+
+/* --- Hero technical visual --- */
+
+.hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-graphic {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+}
+
+.hero-graphic .track-line {
+    fill: none;
+    stroke: var(--border-light);
+    stroke-width: 2;
+}
+
+.hero-graphic .track-line.active {
+    stroke: var(--accent);
+}
+
+.hero-graphic .sector-dot {
+    fill: var(--background);
+    stroke: var(--text-dim);
+    stroke-width: 2;
+}
+
+.hero-graphic .sector-dot.live {
+    fill: var(--accent);
+    stroke: var(--accent);
+}
+
+.hero-graphic text {
+    font-family: var(--font-mono);
+    fill: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.hero-graphic .readout-value {
+    fill: var(--text);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.hero-graphic .trace-path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    opacity: 0.85;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.primary-btn {
+    background: var(--accent);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    border: 1px solid var(--border-light);
+    color: var(--text);
+}
+
+.secondary-btn:hover {
+    border-color: var(--text);
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   LIVE DATA STRIP
+===================================================== */
+
+.data-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.data-strip-inner {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.data-strip-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 16px 24px 16px 0;
+    margin-right: 24px;
+    border-right: 1px solid var(--border);
+
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+}
+
+.data-strip-season {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-right: auto;
+    padding: 16px 0;
+}
+
+.data-strip-metrics {
+    display: flex;
+}
+
+.data-strip-metric {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 16px 20px;
+    border-left: 1px solid var(--border);
+}
+
+.data-strip-metric .value {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.data-strip-metric .label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   SECTIONS (shared)
+===================================================== */
+
+.section {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 80px 5%;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 30px;
+}
+
+.section-label {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.section-heading h2 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.view-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.view-link:hover {
+    color: var(--text);
+}
+
+
+/* =====================================================
+   NEXT RACE — premium component
+===================================================== */
+
+.race-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 40px;
+
+    display: grid;
+    grid-template-columns: 1.4fr auto 1fr;
+    align-items: center;
+    gap: 40px;
+
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.race-card:hover {
+    border-color: var(--border-light);
+    border-left-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.race-round {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.race-info h3 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.circuit {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.race-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+.race-countdown {
+    display: flex;
+    gap: 22px;
+    padding: 0 30px;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+}
+
+.race-countdown .cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.race-countdown .cd-value {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.race-countdown .cd-label {
+    margin-top: 6px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+}
+
+.race-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.race-meta .race-view-btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s, color 0.2s;
+}
+
+.race-meta .race-view-btn:hover {
+    color: var(--accent);
+    gap: 12px;
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 30px 24px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-light);
+}
+
+.stat-index {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.stat-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.stat-sub {
+    display: block;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   CHAMPIONSHIP PULSE
+===================================================== */
+
+.pulse-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+}
+
+.pulse-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 90px;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.pulse-pos {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.pulse-driver {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pulse-name {
+    width: 190px;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pulse-name .team {
+    display: block;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.pulse-bar-track {
+    flex-grow: 1;
+    height: 6px;
+    background: var(--surface-light);
+}
+
+.pulse-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    width: var(--pct, 0%);
+}
+
+.pulse-row:nth-child(2) .pulse-bar-fill { background: #b3b3b8; }
+.pulse-row:nth-child(3) .pulse-bar-fill { background: #7a7a80; }
+.pulse-row:nth-child(4) .pulse-bar-fill { background: var(--text-dim); }
+
+.pulse-points {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.pulse-points .unit {
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+
+/* =====================================================
+   FEATURE CARDS (F1 HUB)
+===================================================== */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.feature-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 35px;
+    text-decoration: none;
+    color: var(--text);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.feature-number {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    max-width: 420px;
+}
+
+.feature-arrow {
+    position: absolute;
+    right: 30px;
+    bottom: 25px;
+    font-size: 22px;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.feature-card:hover .feature-arrow {
+    transform: translateX(5px);
+    color: var(--accent);
+}
+
+
+/* =====================================================
+   SPOTLIGHT + LATEST RESULT
+===================================================== */
+
+.spotlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 35px;
+}
+
+.panel-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 24px;
+}
+
+/* --- Driver spotlight --- */
+
+.spotlight-driver .driver-name {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.spotlight-driver .driver-team {
+    display: block;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 26px;
+}
+
+.spotlight-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 26px;
+}
+
+.spotlight-stats .figure {
+    display: flex;
+    flex-direction: column;
+}
+
+.spotlight-stats .figure-value {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.spotlight-stats .figure-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.panel-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s, color 0.2s;
+}
+
+.panel-link:hover {
+    color: var(--accent);
+    gap: 12px;
+}
+
+/* --- Latest result --- */
+
+.result-race-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 22px;
+    letter-spacing: -0.3px;
+}
+
+.result-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+    border-top: 1px solid var(--border);
+}
+
+.result-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.result-row .pos {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-weight: 700;
+    width: 26px;
+}
+
+.result-fastest {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 4px;
+    margin-bottom: 22px;
+}
+
+.result-fastest .fl-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+}
+
+.result-fastest .fl-driver {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.result-fastest .fl-time {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    margin-top: 50px;
+    padding: 60px 5% 25px;
+}
+
+.footer-content {
+    max-width: var(--max-width);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.footer-logo span {
+    color: var(--accent);
+    font-size: 22px;
+    margin-right: 5px;
+}
+
+.footer-content > .footer-about p {
+    color: var(--text-muted);
+    font-size: 13px;
+    max-width: 280px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--text);
+}
+
+.footer-bottom {
+    max-width: var(--max-width);
+    margin: 50px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+        order: -1;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .race-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .race-countdown {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 0;
+        justify-content: flex-start;
+    }
+
+    .spotlight-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .navbar {
+        gap: 15px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+    }
+
+    .navbar a.login-link {
+        padding: 6px 12px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pulse-name {
+        width: 120px;
+    }
+
+    .data-strip-inner {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .header {
+        height: auto;
+        padding: 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 46px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .data-strip-tag {
+        border-right: none;
+        margin-right: 0;
+        padding: 14px 0;
+    }
+
+    .data-strip-season {
+        display: none;
+    }
+
+    .data-strip-metric {
+        padding: 14px 14px 14px 0;
+    }
+
+    .race-countdown {
+        gap: 14px;
+    }
+
+    .race-countdown .cd-value {
+        font-size: 24px;
+    }
+
+    .pulse-row {
+        grid-template-columns: 24px 1fr 60px;
+        gap: 12px;
+    }
+
+    .pulse-name {
+        width: auto;
+    }
+
+    .pulse-name .team {
+        display: none;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+/* =====================================================
+   BACKGROUND ENHANCEMENT
+   Keeps the original F1 black/red palette while adding
+   depth, technical texture and subtle ambient lighting.
+===================================================== */
+
+/* Subtle telemetry-style grid across the page */
+body {
+    position: relative;
+    background-color: var(--background);
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        radial-gradient(circle at 12% 8%, rgba(225, 6, 0, 0.10), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(225, 6, 0, 0.07), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(255,255,255,0.035), transparent 35%);
+    background-size: 42px 42px, 42px 42px, auto, auto, auto;
+    background-attachment: fixed;
+}
+
+/* A faint diagonal speed-line texture */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.22;
+    background:
+        repeating-linear-gradient(
+            135deg,
+            transparent 0,
+            transparent 90px,
+            rgba(255,255,255,0.018) 91px,
+            transparent 92px,
+            transparent 180px
+        );
+}
+
+/* Keep all actual page content above the texture */
+.header,
+main,
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero gets the strongest ambient lighting */
+.hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    right: -180px;
+    top: -220px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(225, 6, 0, 0.16) 0%,
+        rgba(225, 6, 0, 0.07) 32%,
+        transparent 70%
+    );
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    left: -300px;
+    bottom: -330px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.045) 0%,
+        transparent 68%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-content,
+.hero-visual {
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a small glow behind the circuit graphic */
+.hero-visual::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(225, 6, 0, 0.09) 0%,
+        transparent 68%
+    );
+    filter: blur(18px);
+    pointer-events: none;
+}
+
+/* Give major content bands slightly different depth */
+.overview-section {
+    position: relative;
+}
+
+.overview-section::before {
+    content: "";
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(225,6,0,0.45),
+        transparent
+    );
+}
+
+/* Slight surface lift on cards so they separate from the textured background */
+.race-card,
+.stat-card,
+.feature-card,
+.panel {
+    box-shadow:
+        0 18px 45px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.018);
+}
+
+/* More depth on hover */
+.race-card:hover,
+.stat-card:hover,
+.feature-card:hover {
+    box-shadow:
+        0 22px 55px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.025);
+}
+
+/* Tone down the effects on small screens */
+@media (max-width: 550px) {
+    body {
+        background-size: 52px 52px, 52px 52px, auto, auto, auto;
+    }
+
+    body::before {
+        opacity: 0.14;
+    }
+
+    .hero::before {
+        width: 420px;
+        height: 420px;
+        right: -220px;
+        top: -120px;
+    }
+}

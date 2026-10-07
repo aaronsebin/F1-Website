@@ -1,0 +1,332 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | F1 Racing & Analytics</title>
+    <link rel="icon" type="image/png" href="{% static 'f1app/images/f1-logo.png' %}">
+
+    <link rel="stylesheet" href="{% static 'f1app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'f1app/css/signup.css' %}">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="logo">
+            <img src="{% static 'f1app/images/f1-logo.png' %}" alt="F1"> <span>Racing & Analytics </span>
+        </div>
+
+        <nav class="navbar">
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'drivers' %}">Drivers</a>
+            <a href="{% url 'teams' %}">Teams</a>
+            <a href="{% url 'races' %}">Races</a>
+            <a href="{% url 'standings' %}">Standings</a>
+            <a href="{% url 'analytics' %}">Analytics</a>
+            <a href="{% url 'login' %}" class="login-link">Login</a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="signup-page">
+
+        <div class="signup-container">
+
+            <div class="signup-header">
+
+                <p class="signup-label">
+                    F1 RACING & ANALYTICS
+                </p>
+
+                <h1>
+                    Create Account
+                </h1>
+
+                <p>
+                    Sign up to explore the F1 Racing & Analytics platform.
+                </p>
+
+            </div>
+
+
+            <form method="POST" class="signup-form">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        name="email"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                    >
+
+                </div>
+
+                <div id="signupError" class="signup-message"></div>
+
+                {% comment %}============ DJANGO ======== {% endcomment %}
+                {% if messages %}
+
+                    <div class="signup-message">
+
+                        {% for message in messages %}
+
+                            <p>{{ message }}</p>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <button type="submit" class="signup-button">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div class="login-link-container">
+
+                <p>
+                    Already have an account?
+                    <a href="{% url 'login' %}">
+                        Login
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-about">
+                <div class="logo">
+                    <img src="{% static 'f1app/images/f1-logo.webp' %}" alt="F1"> <span>Racing & Analytics </span>
+                </div>
+                <span>
+                    Aaron Sebin | 2648357 | MDS
+                </span>
+            </div>
+
+            <nav class="footer-links">
+                <a href="{% url 'drivers' %}"> Drivers</a>
+                <a href="{% url 'teams' %}">Teams</a>
+                <a href="{% url 'races' %}">Races</a>
+                <a href="{% url 'standings' %}">Standings</a>
+                <a href="{% url 'analytics' %}">Analytics</a>
+            </nav>
+
+        </div>
+
+
+        <div class="footer-bottom">
+            <p>© 2026 F1 Racing & Analytics</p>
+            <p>Built for learning & exploration</p>
+        </div>
+
+    </footer>
+
+    {% comment %} ========================= SCRIPT =========================== {% endcomment %}
+
+    <script>
+
+        const signupForm = document.querySelector(".signup-form");
+
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirm_password");
+
+        const signupError = document.getElementById("signupError");
+
+
+        signupForm.addEventListener("submit", function(event) {
+
+            signupError.textContent = "";
+
+
+            // ================= USERNAME VALIDATION =================
+
+            if (username.value.trim() === "") {
+
+                event.preventDefault();
+
+                signupError.textContent = "Please enter a username.";
+
+                username.focus();
+
+                return;
+            }
+
+
+            if (username.value.trim().length < 3) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Username must be at least 3 characters long.";
+
+                username.focus();
+
+                return;
+            }
+
+
+            // ================= EMAIL VALIDATION =================
+
+            if (email.value.trim() === "") {
+
+                event.preventDefault();
+
+                signupError.textContent = "Please enter your email address.";
+
+                email.focus();
+
+                return;
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email.value.trim())) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Please enter a valid email address.";
+
+                email.focus();
+
+                return;
+            }
+
+
+            // ================= PASSWORD VALIDATION =================
+
+            if (password.value.length === 0) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Please enter a password.";
+
+                password.focus();
+
+                return;
+            }
+
+
+            if (password.value.length < 6) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Password must be at least 6 characters long.";
+
+                password.focus();
+
+                return;
+            }
+
+
+            // ================= CONFIRM PASSWORD =================
+
+            if (confirmPassword.value.length === 0) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Please confirm your password.";
+
+                confirmPassword.focus();
+
+                return;
+            }
+
+
+            if (password.value !== confirmPassword.value) {
+
+                event.preventDefault();
+
+                signupError.textContent =
+                    "Passwords do not match.";
+
+                confirmPassword.focus();
+
+                return;
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
