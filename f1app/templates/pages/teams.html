@@ -157,44 +157,28 @@
         <div class="footer-content">
 
             <div class="footer-about">
-
-                <div class="footer-logo">
-                    <span>F1</span>
-                    RACING & ANALYTICS
+                <div class="logo">
+                    <img src="{% static 'f1app/images/f1-logo.webp' %}" alt="F1"> <span>Racing & Analytics </span>
                 </div>
-
-                <p>
-                    A Formula 1 racing and analytics platform
-                    built with Django.
-                </p>
-
+                <span>
+                    Aaron Sebin | 2648357 | MDS
+                </span>
             </div>
 
-
-            <div class="footer-links">
-
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'drivers' %}">Drivers</a>
+            <nav class="footer-links">
+                <a href="{% url 'drivers' %}"> Drivers</a>
                 <a href="{% url 'teams' %}">Teams</a>
                 <a href="{% url 'races' %}">Races</a>
                 <a href="{% url 'standings' %}">Standings</a>
                 <a href="{% url 'analytics' %}">Analytics</a>
-
-            </div>
+            </nav>
 
         </div>
 
 
         <div class="footer-bottom">
-
-            <span>
-                © 2026 F1 Racing & Analytics
-            </span>
-
-            <span>
-                DATA / RACING / ANALYTICS
-            </span>
-
+            <p>© 2026 F1 Racing & Analytics</p>
+            <p>Built for learning & exploration</p>
         </div>
 
     </footer>
