@@ -67,6 +67,10 @@
             </a>
 
             {% if user.is_authenticated %}
+                <a href="{% url 'race_notes' %}">Race Notes</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
 
                 <span class="username-display">
                     Welcome, {{ user.username }}

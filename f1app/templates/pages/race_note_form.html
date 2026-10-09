@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} | F1 Racing & Analytics{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/race_notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="crud-page">
+    <h1>{{ page_title }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Save Race Note</button>
+        <a href="{% url 'race_notes' %}">Cancel</a>
+    </form>
+</main>
+{% endblock %}

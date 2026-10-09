@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+
+from .models import RaceNote
+from .forms import RaceNoteForm
 
 # ============================= HOME =============================
 def home(request):
@@ -268,3 +274,95 @@ def signup_view(request):
         return redirect('login')
 
     return render(request, 'pages/signup.html')
+
+
+# ============================= RACE NOTES: READ =============================
+
+@login_required
+def race_notes(request):
+    notes = RaceNote.objects.filter(user=request.user)
+
+    return render(
+        request,
+        'pages/race_notes.html',
+        {'notes': notes}
+    )
+
+
+# ============================= RACE NOTES: CREATE =============================
+
+@login_required
+def race_note_create(request):
+    if request.method == 'POST':
+        form = RaceNoteForm(request.POST)
+
+        if form.is_valid():
+            note = form.save(commit=False)
+            note.user = request.user
+            note.save()
+
+            messages.success(request, 'Race note created successfully.')
+            return redirect('race_notes')
+    else:
+        form = RaceNoteForm()
+
+    return render(
+        request,
+        'pages/race_note_form.html',
+        {
+            'form': form,
+            'page_title': 'Add Race Note',
+        }
+    )
+
+
+# ============================= RACE NOTES: UPDATE =============================
+
+@login_required
+def race_note_update(request, pk):
+    note = get_object_or_404(
+        RaceNote,
+        pk=pk,
+        user=request.user
+    )
+
+    if request.method == 'POST':
+        form = RaceNoteForm(request.POST, instance=note)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Race note updated successfully.')
+            return redirect('race_notes')
+    else:
+        form = RaceNoteForm(instance=note)
+
+    return render(
+        request,
+        'pages/race_note_form.html',
+        {
+            'form': form,
+            'page_title': 'Edit Race Note',
+        }
+    )
+
+
+# ============================= RACE NOTES: DELETE =============================
+
+@login_required
+def race_note_delete(request, pk):
+    note = get_object_or_404(
+        RaceNote,
+        pk=pk,
+        user=request.user
+    )
+
+    if request.method == 'POST':
+        note.delete()
+        messages.success(request, 'Race note deleted successfully.')
+        return redirect('race_notes')
+
+    return render(
+        request,
+        'pages/race_note_confirm_delete.html',
+        {'note': note}
+    )

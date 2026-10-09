@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Race Note | F1 Racing & Analytics{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/race_notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="crud-page">
+    <h1>Delete Race Note</h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ note.race_name }} — {{ note.season }}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'race_notes' %}">Cancel</a>
+    </form>
+</main>
+{% endblock %}

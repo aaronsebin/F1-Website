@@ -1,0 +1,177 @@
+
+/* ================= RACE NOTES CRUD ================= */
+
+.crud-page {
+    width: min(1100px, 90%);
+    min-height: 65vh;
+    margin: 60px auto;
+    color: #f5f5f5;
+}
+
+.crud-page h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.crud-page h1::after {
+    content: "";
+    display: block;
+    width: 75px;
+    height: 4px;
+    margin-top: 12px;
+    background: #e10600;
+    box-shadow: 0 0 12px rgba(225, 6, 0, 0.65);
+}
+
+/* ================= LINKS AND BUTTONS ================= */
+
+.crud-page a,
+.crud-page button {
+    display: inline-block;
+    padding: 11px 18px;
+    border: 1px solid #e10600;
+    border-radius: 5px;
+    background: transparent;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.crud-page a:hover,
+.crud-page button:hover {
+    background: #e10600;
+    box-shadow: 0 0 15px rgba(225, 6, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ================= NOTES LIST ================= */
+
+.crud-page article {
+    margin: 24px 0;
+    padding: 25px;
+    border: 1px solid #303036;
+    border-left: 4px solid #e10600;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #17171c, #101014);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.crud-page article:hover {
+    border-color: #e10600;
+    transform: translateY(-3px);
+}
+
+.crud-page article h2 {
+    margin: 0 0 15px;
+    font-size: 1.5rem;
+}
+
+.crud-page article p {
+    color: #c8c8ce;
+    line-height: 1.7;
+}
+
+.crud-page article small {
+    display: block;
+    margin: 15px 0;
+    color: #92929c;
+}
+
+.crud-page article hr {
+    border: 0;
+    border-top: 1px solid #303036;
+}
+
+/* ================= FORMS ================= */
+
+.crud-page form {
+    max-width: 750px;
+    padding: 30px;
+    border: 1px solid #303036;
+    border-radius: 12px;
+    background: #151519;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+.crud-page form p {
+    margin-bottom: 22px;
+}
+
+.crud-page form label {
+    display: block;
+    margin-bottom: 9px;
+    color: #e4e4e8;
+    font-weight: 600;
+}
+
+.crud-page input,
+.crud-page textarea,
+.crud-page select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #393940;
+    border-radius: 6px;
+    outline: none;
+    background: #0d0d10;
+    color: #ffffff;
+    font: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.crud-page input:focus,
+.crud-page textarea:focus,
+.crud-page select:focus {
+    border-color: #e10600;
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.15);
+}
+
+.crud-page textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.crud-page .helptext {
+    display: block;
+    margin-top: 6px;
+    color: #92929c;
+}
+
+.crud-page .errorlist {
+    color: #ff6868;
+}
+
+/* ================= DELETE CONFIRMATION ================= */
+
+.crud-page form button {
+    margin-right: 12px;
+}
+
+.crud-page > p {
+    line-height: 1.7;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+    .crud-page {
+        width: 92%;
+        margin: 35px auto;
+    }
+
+    .crud-page article,
+    .crud-page form {
+        padding: 18px;
+    }
+
+    .crud-page article h2 {
+        font-size: 1.2rem;
+    }
+}
