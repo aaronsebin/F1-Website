@@ -1,58 +1,10 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+F1 Racing & Analytics
+{% endblock %}
 
-    <title>F1 Racing & Analytics</title>
-
-    <link rel="icon" type="image/png" href="{% static 'f1app/images/f1-logo.png' %}">
-
-    <link rel="stylesheet" href="{% static 'f1app/css/style.css' %}">
-</head>
-
-<body>
-
-    <!-- ================= HEADER ================= -->
-
-    <header class="header">
-
-        <div class="logo">
-            <img src="{% static 'f1app/images/f1-logo.png' %}" alt="F1"> <span>Racing & Analytics </span>
-        </div>
-
-        <nav class="navbar">
-            <a href="{% url 'home' %}" class="active">Home</a>
-            <a href="{% url 'drivers' %}">Drivers</a>
-            <a href="{% url 'teams' %}">Teams</a>
-            <a href="{% url 'races' %}">Races</a>
-            <a href="{% url 'standings' %}">Standings</a>
-            <a href="{% url 'analytics' %}">Analytics</a>
-            {% comment %} <a href="{% url 'login' %}" class="login-link">Login</a> {% endcomment %}
-
-            {% if user.is_authenticated %}
-
-                <span class="username-display">
-                    Welcome, {{ user.username }}
-                </span>
-
-                <a href="{% url 'logout' %}" class="logout-link">
-                    Logout
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'login' %}" class="login-link">
-                    Login
-                </a>
-
-            {% endif %}
-
-        </nav>
-
-    </header>
+{% block content %}
 
     <main>
 
@@ -211,7 +163,7 @@
 
 
                 <div class="race-countdown"
-                     data-target-date="2026-09-26T13:00:00">
+                    data-target-date="2026-09-26T13:00:00">
 
                     <div class="cd-unit">
                         <span class="cd-value cd-days">00</span>
@@ -508,38 +460,7 @@
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="footer">
-
-        <div class="footer-content">
-
-            <div class="footer-about">
-                <div class="logo">
-                    <img src="{% static 'f1app/images/f1-logo.webp' %}" alt="F1"> <span>Racing & Analytics </span>
-                </div>
-                <span>
-                    Aaron Sebin | 2648357 | MDS
-                </span>
-            </div>
-
-            <nav class="footer-links">
-                <a href="{% url 'drivers' %}"> Drivers</a>
-                <a href="{% url 'teams' %}">Teams</a>
-                <a href="{% url 'races' %}">Races</a>
-                <a href="{% url 'standings' %}">Standings</a>
-                <a href="{% url 'analytics' %}">Analytics</a>
-            </nav>
-
-        </div>
-
-
-        <div class="footer-bottom">
-            <p>© 2026 F1 Racing & Analytics</p>
-            <p>Built for learning & exploration</p>
-        </div>
-
-    </footer>
+{% endblock %}
 
     <script src="js/main.js"></script>
 

@@ -1,77 +1,16 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}
+F1 Racing & Analytics
 
-<head>
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/login.css' %}">
+{% endblock %}
 
-    <title>Login | F1 Racing & Analytics</title>
-
-    <link rel="icon" type="image/png"
-          href="{% static 'f1app/images/f1-logo.png' %}">
-
-    <link rel="stylesheet"
-          href="{% static 'f1app/css/style.css' %}">
-
-    <link rel="stylesheet"
-          href="{% static 'f1app/css/login.css' %}">
-
-</head>
-
-
-<body>
-
-    <!-- ================= HEADER ================= -->
-
-    <header class="header">
-
-        <div class="logo">
-
-            <img src="{% static 'f1app/images/f1-logo.png' %}"
-                 alt="F1">
-
-            <span>Racing & Analytics</span>
-
-        </div>
-
-
-        <nav class="navbar">
-
-            <a href="{% url 'home' %}">
-                Home
-            </a>
-
-            <a href="{% url 'drivers' %}">
-                Drivers
-            </a>
-
-            <a href="{% url 'teams' %}">
-                Teams
-            </a>
-
-            <a href="{% url 'races' %}">
-                Races
-            </a>
-
-            <a href="{% url 'standings' %}">
-                Standings
-            </a>
-
-            <a href="{% url 'analytics' %}">
-                Analytics
-            </a>
-
-            <a href="{% url 'login' %}"
-               class="login-link active">
-                Login
-            </a>
-
-        </nav>
-
-    </header>
+{% block content %}
 
 
     <!-- ================= LOGIN ================= -->
@@ -218,73 +157,7 @@
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="footer">
-
-        <div class="footer-content">
-
-            <div class="footer-about">
-
-                <div class="logo">
-
-                    <img
-                        src="{% static 'f1app/images/f1-logo.webp' %}"
-                        alt="F1">
-
-                    <span>
-                        Racing & Analytics
-                    </span>
-
-                </div>
-
-                <span>
-                    Aaron Sebin | 2648357 | MDS
-                </span>
-
-            </div>
-
-
-            <nav class="footer-links">
-
-                <a href="{% url 'drivers' %}">
-                    Drivers
-                </a>
-
-                <a href="{% url 'teams' %}">
-                    Teams
-                </a>
-
-                <a href="{% url 'races' %}">
-                    Races
-                </a>
-
-                <a href="{% url 'standings' %}">
-                    Standings
-                </a>
-
-                <a href="{% url 'analytics' %}">
-                    Analytics
-                </a>
-
-            </nav>
-
-        </div>
-
-
-        <div class="footer-bottom">
-
-            <p>
-                © 2026 F1 Racing & Analytics
-            </p>
-
-            <p>
-                Built for learning & exploration
-            </p>
-
-        </div>
-
-    </footer>
+{% endblock %}
 
 </body>
 

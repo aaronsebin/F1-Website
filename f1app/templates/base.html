@@ -1,0 +1,145 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}F1 Racing & Analytics{% endblock %}</title>
+
+    <link rel="icon" type="image/png"
+          href="{% static 'f1app/images/f1-logo.png' %}">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet"
+          href="{% static 'f1app/css/style.css' %}">
+
+    <!-- Page-specific CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- ================= HEADER / NAVBAR ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'f1app/images/f1-logo.png' %}"
+                     alt="F1 Logo">
+            </a>
+            <span>Racing & Analytics</span>
+        </div>
+
+        <nav class="navbar">
+
+            <a href="{% url 'home' %}"
+               class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
+            </a>
+
+            <a href="{% url 'drivers' %}"
+               class="{% if request.resolver_match.url_name == 'drivers' %}active{% endif %}">
+                Drivers
+            </a>
+
+            <a href="{% url 'teams' %}"
+               class="{% if request.resolver_match.url_name == 'teams' %}active{% endif %}">
+                Teams
+            </a>
+
+            <a href="{% url 'races' %}"
+               class="{% if request.resolver_match.url_name == 'races' %}active{% endif %}">
+                Races
+            </a>
+
+            <a href="{% url 'standings' %}"
+               class="{% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
+                Standings
+            </a>
+
+            <a href="{% url 'analytics' %}"
+               class="{% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
+                Analytics
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <span class="username-display">
+                    Welcome, {{ user.username }}
+                </span>
+
+                <a href="{% url 'logout' %}" class="login-link">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'login' %}"
+                   class="login-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                    Login
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-about">
+
+                <div class="logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'f1app/images/f1-logo.webp' %}"
+                             alt="F1 Logo">
+                    </a>
+                    <span>Racing & Analytics</span>
+                </div>
+
+                <span>
+                    Aaron Sebin | 2648357 | MDS
+                </span>
+
+            </div>
+
+            <nav class="footer-links">
+                <a href="{% url 'drivers' %}">Drivers</a>
+                <a href="{% url 'teams' %}">Teams</a>
+                <a href="{% url 'races' %}">Races</a>
+                <a href="{% url 'standings' %}">Standings</a>
+                <a href="{% url 'analytics' %}">Analytics</a>
+            </nav>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 F1 Racing & Analytics</p>
+            <p>Built for learning & exploration</p>
+        </div>
+
+    </footer>
+
+
+    <!-- Page-specific JavaScript -->
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>
