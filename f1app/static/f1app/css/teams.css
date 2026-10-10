@@ -225,7 +225,7 @@
 .team-alpine {
     --team-glow: radial-gradient(
         circle at center,
-        rgba(20, 140, 255, 0.22),
+        rgba(224, 5, 166, 0.22),
         transparent 68%
     );
 }

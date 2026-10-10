@@ -1,15 +1,141 @@
+
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-F1 Racing & Analytics
+Drivers | F1 Racing & Analytics
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/drivers.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<h1>F1 Drivers</h1>
+<main class="drivers-page">
 
-<a href="{% url 'home' %}">
-    Back to Home
-</a>
+    <!-- HERO SECTION -->
+    <section class="drivers-hero">
+        <div class="drivers-eyebrow">
+            F1 / THE GRID
+        </div>
+
+        <h1>
+            MEET THE <span>DRIVERS</span>
+        </h1>
+
+        <p>
+            Discover the drivers competing in Formula 1.
+            Explore their racing numbers, nationalities and profiles.
+        </p>
+
+        <div class="drivers-hero-line"></div>
+    </section>
+
+    <!-- DRIVER DIRECTORY -->
+    <section class="drivers-section">
+
+        <div class="drivers-section-heading">
+            <div>
+                <span class="section-label">DRIVER DIRECTORY</span>
+                <h2>THE GRID</h2>
+            </div>
+
+            <div class="drivers-total">
+                <span>{{ drivers|length }}</span>
+                DRIVERS
+            </div>
+        </div>
+
+        {% if api_error %}
+
+            <div class="drivers-message drivers-error">
+                <span class="message-icon">!</span>
+                <div>
+                    <h3>Unable to load drivers</h3>
+                    <p>{{ api_error }}</p>
+                </div>
+            </div>
+
+        {% elif drivers %}
+
+            <div class="drivers-grid">
+
+                {% for driver in drivers %}
+
+                    <article class="driver-card team-{{ driver.teamId|slugify }}">
+
+                        <div class="driver-card-top">
+                            <span class="driver-team">
+                                {{ driver.teamId|upper }}
+                            </span>
+
+                            <a href="{{ driver.url }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="driver-arrow"
+                            aria-label="View driver profile">
+                                ↗
+                            </a>
+
+                            <span class="driver-number">
+                                {{ driver.number|default:"—" }}
+                            </span>
+
+                            <img
+                                class="driver-image"
+                                src="{% static 'f1app/images/drivers/' %}{{ driver.driverId }}.webp"
+                                alt="{{ driver.name }} {{ driver.surname }}"
+                                loading="lazy"
+                            >
+
+                            <div class="driver-bottom-fade"></div>
+                        </div>
+
+                        <div class="driver-card-content">
+                            <div class="driver-nationality">
+                                <span class="driver-accent"></span>
+                                {{ driver.nationality|upper }}
+                            </div>
+
+                            <h3 class="driver-name">
+                                <span>{{ driver.name }}</span>
+                                <strong>{{ driver.surname }}</strong>
+                            </h3>
+
+                            <div class="driver-card-footer">
+                                <span>FORMULA 1 · {{ driver.number|default:"—" }}</span>
+                                <span class="driver-code">
+                                    {{ driver.shortName }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="driver-card-accent"></div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="drivers-message">
+                <h3>No drivers available</h3>
+                <p>Driver information is not available right now.</p>
+            </div>
+
+        {% endif %}
+
+        <p class="drivers-source">
+            DRIVER DATA PROVIDED BY
+            <a href="https://f1api.dev/" target="_blank"
+               rel="noopener noreferrer">F1API.dev</a>
+        </p>
+
+    </section>
+
+</main>
 
 {% endblock %}

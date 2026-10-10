@@ -8,14 +8,40 @@ from django.views.decorators.http import require_POST
 
 from .models import RaceNote
 from .forms import RaceNoteForm
+from .f1_api import get_f1_data, F1APIError
 
 # ============================= HOME =============================
 def home(request):
     return render(request, 'index.html')
 
 # ============================= DRIVERS =============================
+
 def drivers(request):
-    return render(request, 'pages/drivers.html')
+    try:
+        data = get_f1_data("current/drivers")
+
+        return render(
+            request,
+            "pages/drivers.html",
+            {
+                "drivers": data.get("drivers", []),
+                "api_error": None,
+            },
+        )
+
+    except F1APIError:
+        return render(
+            request,
+            "pages/drivers.html",
+            {
+                "drivers": [],
+                "api_error": (
+                    "Formula 1 data is temporarily unavailable. "
+                    "Please try again later."
+                ),
+            },
+        )
+
 
 # ============================= TEAMS =============================
 def teams(request):
