@@ -9,18 +9,49 @@
 
     <title>{% block title %}F1 Racing & Analytics{% endblock %}</title>
 
-    <link rel="icon" type="image/png"
-          href="{% static 'f1app/images/f1-logo.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'f1app/images/f1-logo.png' %}">
 
     <!-- Common CSS -->
-    <link rel="stylesheet"
-          href="{% static 'f1app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'f1app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'f1app/css/loading.css' %}">
 
     <!-- Page-specific CSS -->
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
+    <!-- F1 Racing & Analytics Loading Screen -->
+    <div id="site-loader" role="status" aria-label="Loading page">
+
+        <div class="loader-content">
+
+            <h1 class="loader-brand">
+                F1 RACING <span>&</span> ANALYTICS
+            </h1>
+
+            <div class="loader-subtitle">
+                Performance. Precision. Data.
+            </div>
+
+            <div class="loader-lights" aria-hidden="true">
+                <span class="loader-light"></span>
+                <span class="loader-light"></span>
+                <span class="loader-light"></span>
+                <span class="loader-light"></span>
+                <span class="loader-light"></span>
+            </div>
+
+            <div class="loader-track" aria-hidden="true">
+                <div class="loader-track-progress"></div>
+            </div>
+
+            <div class="loader-status">
+                Loading race data...
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- ================= HEADER / NAVBAR ================= -->
 
@@ -29,7 +60,7 @@
         <div class="logo">
             <a href="{% url 'home' %}">
                 <img src="{% static 'f1app/images/f1-logo.png' %}"
-                     alt="F1 Logo">
+                    alt="F1 Logo">
             </a>
             <span>Racing & Analytics</span>
         </div>
@@ -37,32 +68,32 @@
         <nav class="navbar">
 
             <a href="{% url 'home' %}"
-               class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
                 Home
             </a>
 
             <a href="{% url 'drivers' %}"
-               class="{% if request.resolver_match.url_name == 'drivers' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'drivers' %}active{% endif %}">
                 Drivers
             </a>
 
             <a href="{% url 'teams' %}"
-               class="{% if request.resolver_match.url_name == 'teams' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'teams' %}active{% endif %}">
                 Teams
             </a>
 
             <a href="{% url 'races' %}"
-               class="{% if request.resolver_match.url_name == 'races' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'races' %}active{% endif %}">
                 Races
             </a>
 
             <a href="{% url 'standings' %}"
-               class="{% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'standings' %}active{% endif %}">
                 Standings
             </a>
 
             <a href="{% url 'analytics' %}"
-               class="{% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
+                class="{% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
                 Analytics
             </a>
 
@@ -83,7 +114,7 @@
             {% else %}
 
                 <a href="{% url 'login' %}"
-                   class="login-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                    class="login-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
                     Login
                 </a>
 
@@ -112,8 +143,8 @@
 
                 <div class="logo">
                     <a href="{% url 'home' %}">
-                        <img src="{% static 'f1app/images/f1-logo.webp' %}"
-                             alt="F1 Logo">
+                        <img src="{% static 'f1app/images/f1-logo.png' %}"
+                            alt="F1 Logo">
                     </a>
                     <span>Racing & Analytics</span>
                 </div>
@@ -141,9 +172,13 @@
 
     </footer>
 
-
     <!-- Page-specific JavaScript -->
     {% block extra_js %}{% endblock %}
 
+    <!-- Navbar Scroll Behaviour -->
+    <script src="{% static 'f1app/js/navbar.js' %}"></script>
+
+    <!-- Loading Screen JavaScript -->
+    <script src="{% static 'f1app/js/loading.js' %}"></script>
 </body>
 </html>

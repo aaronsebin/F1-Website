@@ -75,9 +75,8 @@ input:focus-visible {
     font-family: var(--font-mono);
 }
 
-
 /* =====================================================
-   HEADER
+   HEADER / NAVBAR
 ===================================================== */
 
 .header {
@@ -86,12 +85,10 @@ input:focus-visible {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
+
     border-bottom: 1px solid var(--border);
     background: rgba(11, 11, 13, 0.95);
     backdrop-filter: blur(6px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .logo {
@@ -1130,7 +1127,6 @@ body::before {
 }
 
 /* Keep all actual page content above the texture */
-.header,
 main,
 .footer {
     position: relative;
@@ -1257,4 +1253,26 @@ main,
         right: -220px;
         top: -120px;
     }
+}
+
+/* =====================================================
+   NAVBAR SCROLL BEHAVIOUR
+===================================================== */
+
+header.header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+}
+
+header.header.nav-hidden {
+    transform: translateY(-100%);
+}
+
+header.header.nav-visible {
+    transform: translateY(0);
 }
