@@ -6,13 +6,137 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 
+from datetime import date
+
 from .models import RaceNote
 from .forms import RaceNoteForm
 from .f1_api import get_f1_data, F1APIError
 
 # ============================= HOME =============================
+
 def home(request):
-    return render(request, 'index.html')
+    from .f1_api import get_f1_data, F1APIError
+
+    context = {
+        "api_error": False,
+        "season": date.today().year,
+        "driver_count": 0,
+        "team_count": 0,
+        "race_count": 0,
+        "next_race": None,
+        "latest_race": None,
+    }
+
+    try:
+        # Get current-season drivers
+        driver_data = get_f1_data("current/drivers")
+        drivers = driver_data.get("drivers", [])
+
+        # Get current-season race calendar
+        calendar_data = get_f1_data("current")
+        races = calendar_data.get("races", calendar_data.get("race", []))
+
+        # Calculate counts
+        context["season"] = calendar_data.get("season", date.today().year)
+        context["driver_count"] = driver_data.get("total", len(drivers))
+        context["team_count"] = len({
+            driver.get("teamId")
+            for driver in drivers
+            if driver.get("teamId")
+        })
+        context["race_count"] = calendar_data.get("total", len(races))
+
+        # Find the next race
+        upcoming_races = []
+
+        for race in races:
+            schedule = race.get("schedule", {})
+            race_schedule = schedule.get("race", {})
+            race_date = race_schedule.get("date") or race.get("date")
+
+            if not race_date:
+                continue
+
+            try:
+                parsed_date = date.fromisoformat(race_date[:10])
+            except (ValueError, TypeError):
+                continue
+
+            if parsed_date >= date.today():
+                race["display_date"] = parsed_date.strftime("%d %b %Y")
+                upcoming_races.append((parsed_date, race))
+
+        if upcoming_races:
+            upcoming_races.sort(key=lambda item: item[0])
+            context["next_race"] = upcoming_races[0][1]
+            
+        
+        # Fetch current drivers' championship standings----------------------------------
+        try:
+            standings_data = get_f1_data(
+                "current/drivers-championship"
+            )
+
+            standings = standings_data.get(
+                "drivers_championship", []
+            )
+
+            # Keep the top four drivers
+            standings = sorted(
+                standings,
+                key=lambda item: (
+                    item.get("position") is None,
+                    item.get("position") or 999
+                )
+            )[:4]
+
+            max_points = max(
+                (float(item.get("points") or 0)
+                for item in standings),
+                default=0
+            )
+
+            for item in standings:
+                position = item.get("position")
+                item["display_position"] = (
+                    f"{position:02d}"
+                    if position is not None
+                    else "—"
+                )
+
+                points = float(item.get("points") or 0)
+                item["bar_pct"] = (
+                    points / max_points * 100
+                    if max_points else 0
+                )
+
+            context["championship_standings"] = standings
+
+        except F1APIError as error:
+            print("Standings API error:", error)
+            context["championship_standings"] = []
+
+
+        # Fetch the latest race results-----------------------------------------
+        try:
+            latest_data = get_f1_data("current/last/race")
+            latest_race = latest_data.get("races")
+
+            if isinstance(latest_race, dict):
+                results = latest_race.get("results", [])
+                latest_race["results"] = (
+                    results if isinstance(results, list) else []
+                )
+                context["latest_race"] = latest_race
+
+        except F1APIError as error:
+            print("Latest race API error:", error)
+
+    except F1APIError as error:
+        print("F1 API error:", error)
+        context["api_error"] = True
+
+    return render(request, "index.html", context)
 
 # ============================= DRIVERS =============================
 

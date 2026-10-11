@@ -95,27 +95,27 @@ F1 Racing & Analytics
                     LIVE DATA
                 </span>
 
-                <span class="data-strip-season">2026 SEASON</span>
+                <span class="data-strip-season">SEASON {{ season }}</span>
 
                 <div class="data-strip-metrics">
 
                     <div class="data-strip-metric">
-                        <span class="value" data-value="22">22</span>
+                        <span class="value">{{ driver_count }}</span>
                         <span class="label">Drivers</span>
                     </div>
 
                     <div class="data-strip-metric">
-                        <span class="value" data-value="11">11</span>
+                        <span class="value">{{ team_count }}</span>
                         <span class="label">Teams</span>
                     </div>
 
                     <div class="data-strip-metric">
-                        <span class="value" data-value="23">23</span>
+                        <span class="value">{{ race_count }}</span>
                         <span class="label">Races</span>
                     </div>
 
                     <div class="data-strip-metric">
-                        <span class="value" data-value="1389    ">1,389</span>
+                        <span class="value">—</span>
                         <span class="label">Laps</span>
                     </div>
 
@@ -142,52 +142,56 @@ F1 Racing & Analytics
             </div>
 
 
-            <div class="race-card" data-race-id="">
+            <div class="race-card">
 
-                <div class="race-info">
+                {% if next_race %}
+                    <div class="race-info">
 
-                    <p class="race-round">ROUND 18</p>
+                        <p class="race-round">
+                            ROUND {{ next_race.round|default:"—" }}
+                        </p>
 
-                    <h3 class="race-name">Azerbaijan Grand Prix</h3>
+                        <h3 class="race-name">
+                            {{ next_race.raceName|default:"Upcoming Grand Prix" }}
+                        </h3>
 
-                    <p class="circuit">
-                        Baku City Circuit • Baku, Azerbaijan
-                    </p>
+                        <p class="circuit">
+                            {{ next_race.circuit.circuitName|default:"Circuit details unavailable" }}
+                            • {{ next_race.circuit.city|default:"" }}
+                            {% if next_race.circuit.country %}
+                                , {{ next_race.circuit.country }}
+                            {% endif %}
+                        </p>
 
-                    <p class="race-status">
-                        <span class="status-dot"></span>
-                        UPCOMING
-                    </p>
+                        <p class="race-status">
+                            <span class="status-dot"></span>
+                            UPCOMING · {{ next_race.display_date }}
+                        </p>
 
-                </div>
-
-
-                <div class="race-countdown"
-                    data-target-date="2026-09-26T13:00:00">
-
-                    <div class="cd-unit">
-                        <span class="cd-value cd-days">00</span>
-                        <span class="cd-label">DAYS</span>
                     </div>
 
-                    <div class="cd-unit">
-                        <span class="cd-value cd-hours">00</span>
-                        <span class="cd-label">HRS</span>
+                    <div class="race-countdown">
+                        <p>Race date: {{ next_race.display_date }}</p>
                     </div>
 
-                    <div class="cd-unit">
-                        <span class="cd-value cd-minutes">00</span>
-                        <span class="cd-label">MIN</span>
+                    <div class="race-meta">
+                        <a href="{% url 'races' %}" class="race-view-btn">
+                            VIEW RACE →
+                        </a>
                     </div>
 
-                </div>
-
-
-                <div class="race-meta">
-                    <a href="pages/races.html" class="race-view-btn">
-                        VIEW RACE →
-                    </a>
-                </div>
+                {% else %}
+                    <div class="race-info">
+                        <h3>No upcoming race found</h3>
+                        <p class="circuit">
+                            {% if api_error %}
+                                Race data is temporarily unavailable.
+                            {% else %}
+                                Check the race calendar for more details.
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
 
             </div>
 
@@ -241,6 +245,7 @@ F1 Racing & Analytics
         </section>
 
 
+
         <!-- ================= CHAMPIONSHIP PULSE ================= -->
 
         <section class="section">
@@ -251,73 +256,54 @@ F1 Racing & Analytics
                     <h2>Championship Pulse</h2>
                 </div>
 
-                <a href="pages/standings.html" class="view-link">
+                <a href="{% url 'standings' %}" class="view-link">
                     Full Standings →
                 </a>
             </div>
 
-
             <div class="pulse-list">
 
-                <div class="pulse-row" data-driver-id="">
-                    <span class="pulse-pos">01</span>
+                {% for driver in championship_standings %}
+
+                <div class="pulse-row" data-driver-id="{{ driver.driverId }}">
+
+                    <span class="pulse-pos">
+                        {{ driver.display_position }}
+                    </span>
+
                     <div class="pulse-driver">
                         <span class="pulse-name">
-                            Driver Name
-                            <span class="team">Team Name</span>
+                            {{ driver.driver.name }} {{ driver.driver.surname }}
+                            <span class="team">
+                                {{ driver.team.teamName }}
+                            </span>
                         </span>
+
                         <div class="pulse-bar-track">
-                            <div class="pulse-bar-fill" style="--pct: 100%"></div>
+                            <div class="pulse-bar-fill"
+                                style="--pct: {{ driver.bar_pct }}%">
+                            </div>
                         </div>
                     </div>
-                    <span class="pulse-points">284<span class="unit">PTS</span></span>
+
+                    <span class="pulse-points">
+                        {{ driver.points|default:0 }}<span class="unit">PTS</span>
+                    </span>
+
                 </div>
 
-                <div class="pulse-row" data-driver-id="">
-                    <span class="pulse-pos">02</span>
-                    <div class="pulse-driver">
-                        <span class="pulse-name">
-                            Driver Name
-                            <span class="team">Team Name</span>
-                        </span>
-                        <div class="pulse-bar-track">
-                            <div class="pulse-bar-fill" style="--pct: 81%"></div>
-                        </div>
-                    </div>
-                    <span class="pulse-points">231<span class="unit">PTS</span></span>
-                </div>
+                {% empty %}
 
-                <div class="pulse-row" data-driver-id="">
-                    <span class="pulse-pos">03</span>
-                    <div class="pulse-driver">
-                        <span class="pulse-name">
-                            Driver Name
-                            <span class="team">Team Name</span>
-                        </span>
-                        <div class="pulse-bar-track">
-                            <div class="pulse-bar-fill" style="--pct: 70%"></div>
-                        </div>
-                    </div>
-                    <span class="pulse-points">198<span class="unit">PTS</span></span>
-                </div>
+                <p class="pulse-empty">
+                    Championship standings are temporarily unavailable.
+                </p>
 
-                <div class="pulse-row" data-driver-id="">
-                    <span class="pulse-pos">04</span>
-                    <div class="pulse-driver">
-                        <span class="pulse-name">
-                            Driver Name
-                            <span class="team">Team Name</span>
-                        </span>
-                        <div class="pulse-bar-track">
-                            <div class="pulse-bar-fill" style="--pct: 66%"></div>
-                        </div>
-                    </div>
-                    <span class="pulse-points">187<span class="unit">PTS</span></span>
-                </div>
+                {% endfor %}
 
             </div>
 
         </section>
+
 
 
         <!-- ================= SPOTLIGHT + LATEST RESULT ================= -->
@@ -357,38 +343,33 @@ F1 Racing & Analytics
 
 
                 <!-- Latest race result -->
-                <div class="panel latest-result" data-race-id="">
+                <div class="panel latest-result">
 
                     <p class="panel-label">LATEST RESULT</p>
 
-                    <h3 class="result-race-name">Italian Grand Prix</h3>
+                    {% if latest_race %}
+                        <h3 class="result-race-name">
+                            {{ latest_race.raceName|default:"Latest Grand Prix" }}
+                        </h3>
 
-                    <div class="result-list">
-
-                        <div class="result-row">
-                            <span class="pos">P1</span>
-                            <span class="name">Driver Name</span>
+                        <div class="result-list">
+                            {% for result in latest_race.results|slice:":3" %}
+                                <div class="result-row">
+                                    <span class="pos">P{{ result.position }}</span>
+                                    <span class="name">
+                                        {{ result.driver.name }} {{ result.driver.surname }}
+                                    </span>
+                                </div>
+                            {% empty %}
+                                <p>Race results have not been published yet.</p>
+                            {% endfor %}
                         </div>
+                    {% else %}
+                        <h3 class="result-race-name">Results unavailable</h3>
+                        <p>Latest race data is temporarily unavailable.</p>
+                    {% endif %}
 
-                        <div class="result-row">
-                            <span class="pos">P2</span>
-                            <span class="name">Driver Name</span>
-                        </div>
-
-                        <div class="result-row">
-                            <span class="pos">P3</span>
-                            <span class="name">Driver Name</span>
-                        </div>
-
-                    </div>
-
-                    <div class="result-fastest">
-                        <span class="fl-label">FASTEST LAP</span>
-                        <span class="fl-driver">Driver Name</span>
-                        <span class="fl-time">1:21.046</span>
-                    </div>
-
-                    <a href="pages/races.html" class="panel-link">
+                    <a href="{% url 'races' %}" class="panel-link">
                         VIEW FULL RESULTS →
                     </a>
 
