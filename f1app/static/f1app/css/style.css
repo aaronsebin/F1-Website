@@ -55,6 +55,7 @@ html {
 }
 
 body {
+    padding-top: 80px;
     font-family: var(--font-body);
 
     background: var(--background);
@@ -1008,11 +1009,12 @@ input:focus-visible {
 @media (max-width: 550px) {
 
     .header {
-        height: auto;
-        padding: 20px;
-        flex-direction: column;
-        gap: 20px;
-    }
+    height: auto;
+    min-height: 80px;
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+}
 
     .navbar {
         flex-wrap: wrap;
@@ -1259,8 +1261,9 @@ main,
    NAVBAR SCROLL BEHAVIOUR
 ===================================================== */
 
+/* Fixed navigation bar */
 header.header {
-    position: fixed !important;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -1269,10 +1272,12 @@ header.header {
     transition: transform 0.3s ease;
 }
 
+/* Hide navbar when scrolling down */
 header.header.nav-hidden {
     transform: translateY(-100%);
 }
 
+/* Show navbar when scrolling up */
 header.header.nav-visible {
     transform: translateY(0);
 }
