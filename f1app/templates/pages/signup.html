@@ -12,7 +12,6 @@ F1 Racing & Analytics
 
 {% block content %}
 
-
     <main class="signup-page">
 
         <div class="signup-container">
@@ -33,13 +32,12 @@ F1 Racing & Analytics
 
             </div>
 
-
-            <form method="POST" class="signup-form">
+            <form method="POST" class="signup-form" id="signupForm" novalidate>
 
                 {% csrf_token %}
 
+                <!-- USERNAME -->
                 <div class="form-group">
-
                     <label for="username">
                         Username
                     </label>
@@ -48,27 +46,47 @@ F1 Racing & Analytics
                         type="text"
                         id="username"
                         name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        maxlength="150"
+                        required
+                        aria-describedby="usernameError"
                     >
 
+                    <small
+                        class="field-error"
+                        id="usernameError"
+                        aria-live="polite">
+                    </small>
                 </div>
 
 
+                <!-- EMAIL -->
                 <div class="form-group">
-
                     <label for="email">
                         Email
                     </label>
 
                     <input
+                        type="email"
                         id="email"
                         name="email"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        required
+                        aria-describedby="emailError"
                     >
 
+                    <small
+                        class="field-error"
+                        id="emailError"
+                        aria-live="polite">
+                    </small>
                 </div>
 
 
+                <!-- PASSWORD -->
                 <div class="form-group">
-
                     <label for="password">
                         Password
                     </label>
@@ -77,13 +95,23 @@ F1 Racing & Analytics
                         type="password"
                         id="password"
                         name="password"
+                        placeholder="Enter your password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                        aria-describedby="passwordError"
                     >
 
+                    <small
+                        class="field-error"
+                        id="passwordError"
+                        aria-live="polite">
+                    </small>
                 </div>
 
 
+                <!-- CONFIRM PASSWORD -->
                 <div class="form-group">
-
                     <label for="confirm_password">
                         Confirm Password
                     </label>
@@ -92,45 +120,40 @@ F1 Racing & Analytics
                         type="password"
                         id="confirm_password"
                         name="confirm_password"
-                    >
-
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                        aria-describedby="confirmPasswordError">
+                    <small
+                        class="field-error"
+                        id="confirmPasswordError"
+                        aria-live="polite">
+                    </small>
                 </div>
 
-                <div id="signupError" class="signup-message"></div>
 
-                {% comment %}============ DJANGO ======== {% endcomment %}
+                <!-- DJANGO MESSAGES -->
                 {% if messages %}
-
-                    <div class="signup-message">
+                    <div class="django-messages" role="status" aria-live="polite">
 
                         {% for message in messages %}
-
-                            <p>{{ message }}</p>
-
+                            <p class="{{ message.tags }}">
+                                {{ message }}
+                            </p>
                         {% endfor %}
 
                     </div>
-
                 {% endif %}
 
 
+                <!-- SUBMIT BUTTON -->
                 <button type="submit" class="signup-button">
                     Create Account
+                    <span aria-hidden="true">→</span>
                 </button>
 
             </form>
-
-
-            <div class="login-link-container">
-
-                <p>
-                    Already have an account?
-                    <a href="{% url 'login' %}">
-                        Login
-                    </a>
-                </p>
-
-            </div>
 
         </div>
 
@@ -140,138 +163,9 @@ F1 Racing & Analytics
 
     {% comment %} ========================= SCRIPT =========================== {% endcomment %}
 
-    <script>
-
-        const signupForm = document.querySelector(".signup-form");
-
-        const username = document.getElementById("username");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-        const confirmPassword = document.getElementById("confirm_password");
-
-        const signupError = document.getElementById("signupError");
-
-
-        signupForm.addEventListener("submit", function(event) {
-
-            signupError.textContent = "";
-
-
-            // ================= USERNAME VALIDATION =================
-
-            if (username.value.trim() === "") {
-
-                event.preventDefault();
-
-                signupError.textContent = "Please enter a username.";
-
-                username.focus();
-
-                return;
-            }
-
-
-            if (username.value.trim().length < 3) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Username must be at least 3 characters long.";
-
-                username.focus();
-
-                return;
-            }
-
-
-            // ================= EMAIL VALIDATION =================
-
-            if (email.value.trim() === "") {
-
-                event.preventDefault();
-
-                signupError.textContent = "Please enter your email address.";
-
-                email.focus();
-
-                return;
-            }
-
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(email.value.trim())) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Please enter a valid email address.";
-
-                email.focus();
-
-                return;
-            }
-
-
-            // ================= PASSWORD VALIDATION =================
-
-            if (password.value.length === 0) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Please enter a password.";
-
-                password.focus();
-
-                return;
-            }
-
-
-            if (password.value.length < 6) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Password must be at least 6 characters long.";
-
-                password.focus();
-
-                return;
-            }
-
-
-            // ================= CONFIRM PASSWORD =================
-
-            if (confirmPassword.value.length === 0) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Please confirm your password.";
-
-                confirmPassword.focus();
-
-                return;
-            }
-
-
-            if (password.value !== confirmPassword.value) {
-
-                event.preventDefault();
-
-                signupError.textContent =
-                    "Passwords do not match.";
-
-                confirmPassword.focus();
-
-                return;
-            }
-
-        });
-
-    </script>
+{% block extra_js %}
+    <script src="{% static 'f1app/js/signup.js' %}"></script>
+{% endblock %}
 
 </body>
 </html>

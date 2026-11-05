@@ -373,43 +373,67 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+
 # ============================= SIGNUP =============================
+
 def signup_view(request):
 
     if request.method == 'POST':
 
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+        username = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm_password', '')
 
+        # Check required fields
+        if not username or not email or not password or not confirm_password:
+            messages.error(
+                request,
+                'Please fill in all the fields.'
+            )
+            return redirect('signup')
+
+        # Check username length
+        if len(username) < 3:
+            messages.error(
+                request,
+                'Username must be at least 3 characters long.'
+            )
+            return redirect('signup')
+
+        # Check password length
+        if len(password) < 6:
+            messages.error(
+                request,
+                'Password must be at least 6 characters long.'
+            )
+            return redirect('signup')
+
+        # Check password confirmation
         if password != confirm_password:
-
             messages.error(
                 request,
                 'Passwords do not match.'
             )
-
             return redirect('signup')
 
+        # Check whether username already exists
         if User.objects.filter(username=username).exists():
-
             messages.error(
                 request,
                 'Username already exists.'
             )
-
             return redirect('signup')
 
-        if User.objects.filter(email=email).exists():
-
+        # Check whether email already exists
+        if User.objects.filter(email__iexact=email).exists():
             messages.error(
                 request,
                 'Email is already registered.'
             )
-
             return redirect('signup')
 
+        # Create user
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -424,6 +448,7 @@ def signup_view(request):
         return redirect('login')
 
     return render(request, 'pages/signup.html')
+
 
 
 # ============================= RACE NOTES: READ =============================

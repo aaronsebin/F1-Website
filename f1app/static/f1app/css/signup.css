@@ -1,3 +1,4 @@
+
 .signup-page {
     min-height: calc(100vh - 80px);
     display: flex;
@@ -36,13 +37,13 @@
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 11px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0px;
 }
 
 .form-group label {
@@ -89,4 +90,70 @@
 .login-link-container a {
     color: var(--accent);
     text-decoration: none;
+}
+
+
+/* ================= INLINE VALIDATION ================= */
+
+.field-error {
+    display: block;
+    color: #ff7189;
+    font-size: 11px;
+    margin-top: 5px;
+    min-height: 14px;
+    line-height: 1.4;
+}
+
+/* Invalid input */
+
+.form-group input.invalid {
+    border-color: #e34d6a;
+    box-shadow: 0 0 0 1px rgba(227, 77, 106, 0.15);
+}
+
+/* Valid input */
+
+.form-group input.valid {
+    border-color: #35d6a5;
+}
+
+/* Focused input */
+
+.form-group input:focus {
+    outline: none;
+}
+
+
+/* ================= DJANGO MESSAGES ================= */
+
+.django-messages {
+    margin: 12px 0;
+    font-size: 12px;
+}
+
+.django-messages p {
+    margin: 4px 0;
+}
+
+.django-messages .error {
+    color: #ff7189;
+}
+
+.django-messages .success {
+    color: #35d6a5;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+
+    .signup-page {
+        padding: 30px 15px;
+    }
+
+    .signup-container {
+        padding: 25px 20px;
+    }
+
 }
