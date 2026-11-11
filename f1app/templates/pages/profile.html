@@ -15,10 +15,22 @@
         <div class="profile-heading">
             <span class="profile-tag">ACCOUNT SETTINGS</span>
             <h1>MY PROFILE</h1>
-            <p>Manage your personal profile and profile picture.</p>
+            <p>Manage your personal information and profile picture.</p>
         </div>
 
-        <!-- Profile Picture Preview -->
+        <!-- SUCCESS AND ERROR MESSAGES -->
+        {% if messages %}
+            <div class="profile-messages">
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <!-- PROFILE OVERVIEW -->
         <div class="profile-card">
 
             <div class="profile-image-section">
@@ -36,71 +48,190 @@
                 {% endif %}
 
                 <div class="profile-user-info">
-                    <h2>{{ request.user.username }}</h2>
+                    <h2>
+                        {% if request.user.first_name %}
+                            {{ request.user.first_name }}
+                            {{ request.user.last_name }}
+                        {% else %}
+                            {{ request.user.username }}
+                        {% endif %}
+                    </h2>
+
                     <p>{{ request.user.email }}</p>
+                    <span class="profile-username">
+                        @{{ request.user.username }}
+                    </span>
                 </div>
 
             </div>
 
-            <div class="profile-divider"></div>
+        </div>
 
-            <!-- Display Django Messages -->
-            {% if messages %}
-                <div class="profile-messages">
-                    {% for message in messages %}
-                        <p class="message {{ message.tags }}">
-                            {{ message }}
-                        </p>
-                    {% endfor %}
+
+        <!-- ACCOUNT DETAILS -->
+        <div class="profile-card">
+
+            <div class="profile-section-heading">
+                <h2>PERSONAL INFORMATION</h2>
+                <p>Update your account details below.</p>
+            </div>
+
+            <form method="POST" class="profile-form">
+
+                {% csrf_token %}
+
+                <input
+                    type="hidden"
+                    name="action"
+                    value="update_details"
+                >
+
+                <!-- USERNAME -->
+                <div class="profile-field">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        value="{{ request.user.username }}"
+                        readonly
+                        class="readonly-input"
+                    >
+
+                    <small>
+                        Your username cannot be changed here.
+                    </small>
+
                 </div>
-            {% endif %}
 
-            <!-- Upload Profile Picture -->
+
+                <!-- FIRST NAME -->
+                <div class="profile-field">
+
+                    <label for="{{ user_form.first_name.id_for_label }}">
+                        First Name
+                    </label>
+
+                    {{ user_form.first_name }}
+
+                    {% for error in user_form.first_name.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- LAST NAME -->
+                <div class="profile-field">
+
+                    <label for="{{ user_form.last_name.id_for_label }}">
+                        Last Name
+                    </label>
+
+                    {{ user_form.last_name }}
+
+                    {% for error in user_form.last_name.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="profile-field">
+
+                    <label for="{{ user_form.email.id_for_label }}">
+                        Email Address
+                    </label>
+
+                    {{ user_form.email }}
+
+                    {% for error in user_form.email.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="profile-btn"
+                >
+                    SAVE ACCOUNT DETAILS
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- PROFILE PICTURE SETTINGS -->
+        <div class="profile-card">
+
+            <div class="profile-section-heading">
+                <h2>PROFILE PICTURE</h2>
+                <p>Upload or change your profile picture.</p>
+            </div>
+
             <form
                 method="POST"
                 enctype="multipart/form-data"
                 class="profile-form"
             >
+
                 {% csrf_token %}
 
-                <label for="{{ form.profile_image.id_for_label }}">
-                    Choose a profile picture
-                </label>
+                <input
+                    type="hidden"
+                    name="action"
+                    value="update_picture"
+                >
 
-                {{ form.profile_image }}
+                <div class="profile-field">
 
-                {% if form.profile_image.errors %}
-                    <div class="field-error">
-                        {% for error in form.profile_image.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                    <label for="{{ form.profile_image.id_for_label }}">
+                        Choose a profile picture
+                    </label>
+
+                    {{ form.profile_image }}
+
+                    {% for error in form.profile_image.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
+
+                </div>
 
                 <p class="image-help">
                     Supported formats: JPG, JPEG, PNG and WebP.
                     Maximum file size: 5 MB.
                 </p>
 
-                <button type="submit" class="profile-btn">
+                <button
+                    type="submit"
+                    class="profile-btn"
+                >
                     UPDATE PROFILE PICTURE
                 </button>
 
             </form>
 
-            <!-- Remove Profile Picture -->
+
             {% if profile.profile_image %}
+
                 <form
                     method="POST"
                     action="{% url 'remove_profile_image' %}"
                     class="remove-form"
                 >
+
                     {% csrf_token %}
 
                     <button type="submit" class="remove-btn">
                         REMOVE PROFILE PICTURE
                     </button>
+
                 </form>
+
             {% endif %}
 
         </div>

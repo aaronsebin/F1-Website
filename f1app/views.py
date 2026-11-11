@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from datetime import date
 
 from .models import RaceNote, UserProfile
-from .forms import RaceNoteForm, UserProfileForm
+from .forms import RaceNoteForm, UserProfileForm, UserUpdateForm
 from .f1_api import get_f1_data, F1APIError
 
 # ============================= HOME =============================
@@ -543,55 +543,93 @@ def race_note_delete(request, pk):
     )
 
 
+
 # ============================= USER PROFILE =============================
 
 @login_required
 def profile_view(request):
 
-    # Get the logged-in user's profile.
-    # Create one if it does not exist.
     profile, created = UserProfile.objects.get_or_create(
         user=request.user
     )
 
     if request.method == 'POST':
 
-        form = UserProfileForm(
-            request.POST,
-            request.FILES,
-            instance=profile
-        )
+        action = request.POST.get('action')
 
-        if form.is_valid():
+        # UPDATE ACCOUNT DETAILS
+        if action == 'update_details':
 
-            # Keep the existing image reference
-            old_image = profile.profile_image
-
-            # Save the new image
-            updated_profile = form.save()
-
-            # Delete the old image if a different image was uploaded
-            if old_image and old_image.name != updated_profile.profile_image.name:
-                old_image.delete(save=False)
-
-            messages.success(
-                request,
-                'Profile picture updated successfully.'
+            user_form = UserUpdateForm(
+                request.POST,
+                instance=request.user
             )
 
-            return redirect('profile')
+            if user_form.is_valid():
+
+                user_form.save()
+
+                messages.success(
+                    request,
+                    'Account details updated successfully.'
+                )
+
+                return redirect('profile')
+
+            image_form = UserProfileForm(instance=profile)
+
+        # UPDATE PROFILE PICTURE
+        else:
+
+            image_form = UserProfileForm(
+                request.POST,
+                request.FILES,
+                instance=profile
+            )
+
+            if image_form.is_valid():
+
+                # Save the old image filename before updating
+                old_image_name = (
+                    profile.profile_image.name
+                    if profile.profile_image else None
+                )
+
+                updated_profile = image_form.save()
+
+                new_image_name = (
+                    updated_profile.profile_image.name
+                    if updated_profile.profile_image else None
+                )
+
+                # Delete the old image if a new one was uploaded
+                if old_image_name and old_image_name != new_image_name:
+                    profile.profile_image.storage.delete(old_image_name)
+
+                messages.success(
+                    request,
+                    'Profile picture updated successfully.'
+                )
+
+                return redirect('profile')
+
+            user_form = UserUpdateForm(instance=request.user)
 
     else:
-        form = UserProfileForm(instance=profile)
+
+        user_form = UserUpdateForm(instance=request.user)
+        image_form = UserProfileForm(instance=profile)
 
     return render(
         request,
         'pages/profile.html',
         {
             'profile': profile,
-            'form': form
+            'form': image_form,
+            'user_form': user_form
         }
     )
+
 
 
 # ============================= REMOVE PROFILE IMAGE =============================
