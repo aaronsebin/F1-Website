@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+
+    <div class="profile-container">
+
+        <div class="profile-heading">
+            <span class="profile-tag">ACCOUNT SETTINGS</span>
+            <h1>MY PROFILE</h1>
+            <p>Manage your personal profile and profile picture.</p>
+        </div>
+
+        <!-- Profile Picture Preview -->
+        <div class="profile-card">
+
+            <div class="profile-image-section">
+
+                {% if profile.profile_image %}
+                    <img
+                        src="{{ profile.profile_image.url }}"
+                        alt="Profile Picture"
+                        class="profile-image"
+                    >
+                {% else %}
+                    <div class="profile-placeholder">
+                        {{ request.user.username|first|upper }}
+                    </div>
+                {% endif %}
+
+                <div class="profile-user-info">
+                    <h2>{{ request.user.username }}</h2>
+                    <p>{{ request.user.email }}</p>
+                </div>
+
+            </div>
+
+            <div class="profile-divider"></div>
+
+            <!-- Display Django Messages -->
+            {% if messages %}
+                <div class="profile-messages">
+                    {% for message in messages %}
+                        <p class="message {{ message.tags }}">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Upload Profile Picture -->
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                class="profile-form"
+            >
+                {% csrf_token %}
+
+                <label for="{{ form.profile_image.id_for_label }}">
+                    Choose a profile picture
+                </label>
+
+                {{ form.profile_image }}
+
+                {% if form.profile_image.errors %}
+                    <div class="field-error">
+                        {% for error in form.profile_image.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <p class="image-help">
+                    Supported formats: JPG, JPEG, PNG and WebP.
+                    Maximum file size: 5 MB.
+                </p>
+
+                <button type="submit" class="profile-btn">
+                    UPDATE PROFILE PICTURE
+                </button>
+
+            </form>
+
+            <!-- Remove Profile Picture -->
+            {% if profile.profile_image %}
+                <form
+                    method="POST"
+                    action="{% url 'remove_profile_image' %}"
+                    class="remove-form"
+                >
+                    {% csrf_token %}
+
+                    <button type="submit" class="remove-btn">
+                        REMOVE PROFILE PICTURE
+                    </button>
+                </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

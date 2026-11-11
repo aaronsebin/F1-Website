@@ -101,17 +101,36 @@
                 <a href="{% url 'race_notes' %}">Race Notes</a>
             {% endif %}
 
+
             {% if user.is_authenticated %}
 
-                <span class="username-display">
-                    Welcome, {{ user.username }}
-                </span>
+                <a href="{% url 'profile' %}"
+                class="profile-nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+
+                    {% if user.profile.profile_image %}
+                        <img
+                            src="{{ user.profile.profile_image.url }}"
+                            alt="Profile Picture"
+                            class="navbar-profile-image"
+                        >
+                    {% else %}
+                        <span class="navbar-profile-placeholder">
+                            {{ user.username|first|upper }}
+                        </span>
+                    {% endif %}
+
+                    <span class="username-display">
+                        Welcome, {{ user.username }}
+                    </span>
+
+                </a>
 
                 <a href="{% url 'logout' %}" class="login-link">
                     Logout
                 </a>
 
             {% else %}
+
 
                 <a href="{% url 'login' %}"
                     class="login-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">

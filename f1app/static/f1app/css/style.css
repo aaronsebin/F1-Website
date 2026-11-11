@@ -136,11 +136,63 @@ input:focus-visible {
 
 .username-display {
     color: var(--text);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     margin-left: 15px;
     white-space: nowrap;
 }
+
+
+
+/* ================= PROFILE NAVBAR ================= */
+
+.profile-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: 0.3s ease;
+}
+
+.profile-nav-link:hover {
+    color: #e10600;
+}
+
+.navbar-profile-image,
+.navbar-profile-placeholder {
+    display: block;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px;
+    min-height: 34px;
+    max-width: 34px;
+    max-height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    border: 2px solid #e10600;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.navbar-profile-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #292929;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* .username-display {
+    font-size: 14px;
+    white-space: nowrap;
+} */
+
 
 
 /* =====================================================

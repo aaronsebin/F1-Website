@@ -1,6 +1,9 @@
-# Create your models here.
-from django.db import models
 
+from django.db import models
+from django.contrib.auth.models import User
+
+
+# ============================= DRIVER =============================
 
 class Driver(models.Model):
     name = models.CharField(max_length=100)
@@ -10,9 +13,9 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.name
-from django.db import models
-from django.contrib.auth.models import User
 
+
+# ============================= RACE NOTES =============================
 
 class RaceNote(models.Model):
     user = models.ForeignKey(
@@ -34,3 +37,23 @@ class RaceNote(models.Model):
 
     def __str__(self):
         return f"{self.race_name} ({self.season})"
+
+
+# ============================= USER PROFILE =============================
+
+class UserProfile(models.Model):
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="profile"
+    )
+
+    profile_image = models.ImageField(
+        upload_to="profile_images/",
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"

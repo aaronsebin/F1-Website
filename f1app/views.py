@@ -8,8 +8,8 @@ from django.views.decorators.http import require_POST
 
 from datetime import date
 
-from .models import RaceNote
-from .forms import RaceNoteForm
+from .models import RaceNote, UserProfile
+from .forms import RaceNoteForm, UserProfileForm
 from .f1_api import get_f1_data, F1APIError
 
 # ============================= HOME =============================
@@ -541,3 +541,89 @@ def race_note_delete(request, pk):
         'pages/race_note_confirm_delete.html',
         {'note': note}
     )
+
+
+# ============================= USER PROFILE =============================
+
+@login_required
+def profile_view(request):
+
+    # Get the logged-in user's profile.
+    # Create one if it does not exist.
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == 'POST':
+
+        form = UserProfileForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
+
+        if form.is_valid():
+
+            # Keep the existing image reference
+            old_image = profile.profile_image
+
+            # Save the new image
+            updated_profile = form.save()
+
+            # Delete the old image if a different image was uploaded
+            if old_image and old_image.name != updated_profile.profile_image.name:
+                old_image.delete(save=False)
+
+            messages.success(
+                request,
+                'Profile picture updated successfully.'
+            )
+
+            return redirect('profile')
+
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(
+        request,
+        'pages/profile.html',
+        {
+            'profile': profile,
+            'form': form
+        }
+    )
+
+
+# ============================= REMOVE PROFILE IMAGE =============================
+
+@login_required
+@require_POST
+def remove_profile_image(request):
+
+    # Find the logged-in user's profile
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    # Check whether a profile image exists
+    if profile.profile_image:
+
+        # Delete the physical image file
+        profile.profile_image.delete(save=False)
+
+        # Clear the database field
+        profile.profile_image = None
+        profile.save()
+
+        messages.success(
+            request,
+            'Profile picture removed successfully.'
+        )
+
+    else:
+        messages.info(
+            request,
+            'You do not have a profile picture to remove.'
+        )
+
+    return redirect('profile')
