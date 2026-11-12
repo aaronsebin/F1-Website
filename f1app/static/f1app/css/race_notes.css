@@ -175,3 +175,33 @@
         font-size: 1.2rem;
     }
 }
+
+/* ================= PAGINATION ================= */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 35px 0;
+    flex-wrap: wrap;
+}
+
+.pagination a {
+    background: #e10600;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.pagination a:hover {
+    background: #b90000;
+}
+
+.pagination span {
+    color: #ccc;
+    font-size: 14px;
+}

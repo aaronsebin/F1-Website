@@ -1,13 +1,17 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}My Race Notes | F1 Racing & Analytics{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'f1app/css/race_notes.css' %}">
 {% endblock %}
 
 {% block content %}
+
 <main class="crud-page">
+
     <h1>My Race Notes</h1>
 
     {% if messages %}
@@ -20,8 +24,12 @@
         <a href="{% url 'race_note_create' %}">+ Add Race Note</a>
     </p>
 
+    <!-- DISPLAY RACE NOTES -->
+
     {% for note in notes %}
+
         <article>
+
             <h2>{{ note.race_name }} — {{ note.season }}</h2>
 
             {% if note.circuit %}
@@ -29,17 +37,65 @@
             {% endif %}
 
             <p>{{ note.notes|linebreaksbr }}</p>
-            <small>Last updated: {{ note.updated_at|date:"d M Y, H:i" }}</small>
+
+            <small>
+                Last updated: {{ note.updated_at|date:"d M Y, H:i" }}
+            </small>
 
             <p>
                 <a href="{% url 'race_note_update' note.pk %}">Edit</a>
                 |
                 <a href="{% url 'race_note_delete' note.pk %}">Delete</a>
             </p>
+
         </article>
+
         <hr>
+
     {% empty %}
+
         <p>You haven't created any race notes yet.</p>
+
     {% endfor %}
+
+
+    <!-- PAGINATION CONTROLS -->
+
+    {% if page_obj.paginator.num_pages > 1 %}
+
+        <div class="pagination">
+
+            {% if page_obj.has_previous %}
+
+                <a href="?page=1">First</a>
+
+                <a href="?page={{ page_obj.previous_page_number }}">
+                    Previous
+                </a>
+
+            {% endif %}
+
+            <span>
+                Page {{ page_obj.number }}
+                of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+
+                <a href="?page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+
+                <a href="?page={{ page_obj.paginator.num_pages }}">
+                    Last
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
 </main>
+
 {% endblock %}

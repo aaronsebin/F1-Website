@@ -5,9 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-
+from django.core.paginator import Paginator
 from datetime import date
-
 from .models import RaceNote, UserProfile
 from .forms import RaceNoteForm, UserProfileForm, UserUpdateForm
 from .f1_api import get_f1_data, F1APIError
@@ -455,12 +454,26 @@ def signup_view(request):
 
 @login_required
 def race_notes(request):
+
+    # Retrieve notes belonging to the logged-in user
     notes = RaceNote.objects.filter(user=request.user)
+
+    # Divide records into pages of 5
+    paginator = Paginator(notes, 5)
+
+    # Get the requested page number from the URL
+    page_number = request.GET.get('page')
+
+    # Return the requested page
+    page_obj = paginator.get_page(page_number)
 
     return render(
         request,
         'pages/race_notes.html',
-        {'notes': notes}
+        {
+            'page_obj': page_obj,
+            'notes': page_obj,
+        }
     )
 
 
