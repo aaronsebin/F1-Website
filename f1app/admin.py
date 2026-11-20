@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Driver, RaceNote
+from .models import Driver, RaceNote, Race
 
 
 @admin.register(Driver)
@@ -46,3 +46,31 @@ class RaceNoteAdmin(admin.ModelAdmin):
     )
 
     list_filter = ("season",)
+    
+    
+@admin.register(Race)
+class RaceAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "race_name",
+        "season",
+        "round",
+        "circuit",
+        "country",
+        "race_date",
+        "status",
+    )
+
+    search_fields = (
+        "race_name",
+        "circuit",
+        "country",
+    )
+
+    list_filter = (
+        "season",
+        "status",
+        "country",
+    )
+
+    ordering = ("season", "round")

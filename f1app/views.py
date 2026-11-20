@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from datetime import date
-from .models import Driver, RaceNote, UserProfile
+from .models import Driver, RaceNote, UserProfile, Race
 from .forms import RaceNoteForm, UserProfileForm, UserUpdateForm
 
 
@@ -207,8 +207,38 @@ def team_detail(request, slug):
     )
 
 # ============================= RACES =============================
+
 def races(request):
-    return render(request, 'pages/races.html')
+
+    available_seasons = list(
+        Race.objects.order_by("-season")
+        .values_list("season", flat=True)
+        .distinct()
+    )
+
+    selected_season = request.GET.get("season", "2026")
+
+    try:
+        selected_season = int(selected_season)
+    except (TypeError, ValueError):
+        selected_season = 2026
+
+    if available_seasons and selected_season not in available_seasons:
+        selected_season = available_seasons[0]
+
+    race_records = Race.objects.filter(
+        season=selected_season
+    ).order_by("round")
+
+    context = {
+        "races": race_records,
+        "selected_season": selected_season,
+        "available_seasons": available_seasons,
+        "race_count": race_records.count(),
+    }
+
+    return render(request, "pages/races.html", context)
+
 
 # ============================= STANDINGS =============================
 def standings(request):

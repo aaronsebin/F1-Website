@@ -78,3 +78,40 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
+
+# ============================= RACES =============================
+
+class Race(models.Model):
+
+    STATUS_CHOICES = [
+        ("UPCOMING", "Upcoming"),
+        ("COMPLETED", "Completed"),
+        ("CANCELLED", "Cancelled"),
+    ]
+
+    season = models.PositiveSmallIntegerField(default=2026)
+    round = models.PositiveSmallIntegerField()
+
+    race_name = models.CharField(max_length=150)
+    circuit = models.CharField(max_length=150)
+    circuit_image = models.ImageField(
+        upload_to="circuits/",
+        blank=True,
+        null=True
+    )
+    country = models.CharField(max_length=100)
+
+    race_date = models.DateTimeField()
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="UPCOMING"
+    )
+
+    class Meta:
+        ordering = ["season", "round"]
+        unique_together = ("season", "round")
+
+    def __str__(self):
+        return f"{self.race_name} ({self.season})"

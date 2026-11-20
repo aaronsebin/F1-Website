@@ -1,0 +1,555 @@
+
+/* =========================================================
+   RACES PAGE
+========================================================= */
+
+.races-page {
+    min-height: 100vh;
+    background: var(--background, #080a0e);
+    color: var(--text, #ffffff);
+    padding-bottom: 100px;
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.races-hero {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 70px max(7%, calc((100% - 1300px) / 2));
+    background:
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(225, 6, 0, 0.16),
+            transparent 35%
+        ),
+        linear-gradient(120deg, #10141c, #080a0e 70%);
+    border-bottom: 1px solid var(--border, #252a34);
+}
+
+.races-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.races-eyebrow,
+.section-label {
+    display: inline-block;
+    color: #e10600;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.races-hero h1 {
+    margin: 16px 0;
+    font-size: clamp(42px, 7vw, 78px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -3px;
+}
+
+.races-hero h1 span {
+    color: #e10600;
+}
+
+.races-hero p {
+    max-width: 480px;
+    color: var(--text-muted, #a0a5b0);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.races-hero-decoration {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-8deg);
+    pointer-events: none;
+}
+
+.races-hero-decoration span {
+    color: rgba(255, 255, 255, 0.035);
+    font-size: clamp(150px, 25vw, 330px);
+    font-weight: 900;
+    font-style: italic;
+}
+
+
+/* =========================================================
+   MAIN SECTION
+========================================================= */
+
+.races-section {
+    width: min(1300px, 86%);
+    margin: 65px auto 0;
+}
+
+.races-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.races-heading h2 {
+    margin: 12px 0;
+    font-size: clamp(25px, 4vw, 38px);
+    font-weight: 850;
+    letter-spacing: -1px;
+}
+
+.races-heading h2 span {
+    color: #e10600;
+}
+
+.races-heading p {
+    margin: 0;
+    color: var(--text-muted, #a0a5b0);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SEASON SELECTOR
+========================================================= */
+
+.season-form {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 170px;
+}
+
+.season-form label {
+    color: var(--text-muted, #a0a5b0);
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.season-form select {
+    width: 100%;
+    padding: 13px 38px 13px 15px;
+    color: #ffffff;
+    background: #151a23;
+    border: 1px solid #343b49;
+    border-radius: 5px;
+    outline: none;
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color 0.25s ease;
+}
+
+.season-form select:hover,
+.season-form select:focus {
+    border-color: #e10600;
+}
+
+.season-form select option {
+    background: #151a23;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   RACE OVERVIEW
+========================================================= */
+
+.races-overview {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 20px 0;
+    margin-bottom: 25px;
+    border-top: 1px solid var(--border, #252a34);
+    border-bottom: 1px solid var(--border, #252a34);
+}
+
+.race-count-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.race-count-number {
+    color: #e10600;
+    font-size: 35px;
+    font-weight: 900;
+}
+
+.race-count-label,
+.race-season-label {
+    color: var(--text-muted, #a0a5b0);
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    letter-spacing: 1.2px;
+}
+
+.race-count-line {
+    width: 1px;
+    height: 30px;
+    background: var(--border, #343b49);
+}
+
+
+/* =========================================================
+   RACE GRID
+========================================================= */
+
+.races-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+
+/* =========================================================
+   RACE CARD
+========================================================= */
+
+.race-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 270px;
+    padding: 22px;
+    overflow: hidden;
+    background: var(--surface, #11151d);
+    border: 1px solid var(--border, #252a34);
+    border-radius: 7px;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.race-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(225, 6, 0, 0.65);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.race-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.race-round {
+    color: #e10600;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.race-status {
+    padding: 6px 9px;
+    border-radius: 3px;
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.status-upcoming {
+    color: #f2c14e;
+    background: rgba(242, 193, 78, 0.1);
+    border: 1px solid rgba(242, 193, 78, 0.25);
+}
+
+.status-completed {
+    color: #48c78e;
+    background: rgba(72, 199, 142, 0.1);
+    border: 1px solid rgba(72, 199, 142, 0.25);
+}
+
+.status-cancelled {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.25);
+}
+
+
+/* =========================================================
+   RACE CARD CONTENT
+========================================================= */
+
+.race-card-content {
+    flex: 1;
+    padding: 30px 0 25px;
+}
+
+.race-country {
+    color: var(--text-muted, #a0a5b0);
+    font-family: var(--font-mono, monospace);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.race-card-content h3 {
+    margin: 9px 0 14px;
+    color: var(--text, #ffffff);
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 850;
+}
+
+.race-circuit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted, #a0a5b0);
+    font-size: 12px;
+}
+
+.race-detail-icon {
+    color: #e10600;
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   RACE CARD FOOTER
+========================================================= */
+
+.race-card-bottom {
+    display: flex;
+    gap: 35px;
+    padding-top: 17px;
+    border-top: 1px solid var(--border, #252a34);
+}
+
+.race-date,
+.race-time {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.race-detail-label {
+    color: var(--text-muted, #858b98);
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.race-date strong,
+.race-time strong {
+    color: var(--text, #ffffff);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.race-card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #e10600;
+    transition: width 0.3s ease;
+}
+
+.race-card:hover .race-card-accent {
+    width: 100%;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.races-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 330px;
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--surface, #11151d);
+    border: 1px dashed #343b49;
+    border-radius: 7px;
+}
+
+.empty-icon {
+    margin-bottom: 20px;
+    font-size: 42px;
+}
+
+.races-empty h3 {
+    margin: 12px 0;
+    font-size: 25px;
+    font-weight: 850;
+}
+
+.races-empty p {
+    max-width: 480px;
+    color: var(--text-muted, #a0a5b0);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.races-empty .empty-admin-note {
+    color: #e10600;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 1000px) {
+    .races-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .races-section {
+        width: 90%;
+    }
+}
+
+@media (max-width: 650px) {
+    .races-hero {
+        min-height: 280px;
+        padding: 55px 6%;
+    }
+
+    .races-hero h1 {
+        letter-spacing: -1.5px;
+    }
+
+    .races-hero-decoration {
+        right: 3%;
+    }
+
+    .races-section {
+        width: 90%;
+        margin-top: 45px;
+    }
+
+    .races-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .races-controls,
+    .season-form {
+        width: 100%;
+    }
+
+    .races-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .race-card {
+        min-height: 250px;
+    }
+
+    .races-overview {
+        gap: 15px;
+    }
+
+    .race-count-number {
+        font-size: 29px;
+    }
+}
+
+/* Circuit layout image */
+
+.race-circuit-image {
+    width: 100%;
+    height: 145px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #0d1016;
+    border: 1px solid var(--border, #252a34);
+    border-radius: 5px;
+}
+
+.race-circuit-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.race-card:hover .race-circuit-image img {
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   RACE CARD ALIGNMENT FIX
+========================================================= */
+
+.race-card {
+    align-items: stretch;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.race-card-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.race-card-content {
+    width: 100%;
+    flex: 1;
+    padding: 22px 0;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.race-card-content h3 {
+    text-align: left;
+    font-size: 23px;
+    line-height: 1.3;
+}
+
+.race-circuit {
+    width: 100%;
+    text-align: left;
+}
+
+.race-card-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 45px;
+    padding-top: 18px;
+    box-sizing: border-box;
+}
+
+.race-date,
+.race-time {
+    text-align: left;
+}
+
+.race-card-accent {
+    width: 0;
+}

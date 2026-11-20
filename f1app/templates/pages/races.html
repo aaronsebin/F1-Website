@@ -1,0 +1,193 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'f1app/css/races.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="races-page">
+
+    <!-- HERO SECTION -->
+    <section class="races-hero">
+        <div class="races-hero-content">
+            <span class="races-eyebrow">FORMULA ONE WORLD CHAMPIONSHIP</span>
+
+            <h1>RACE <span>CALENDAR</span></h1>
+
+            <p>
+                Every circuit. Every destination. Every race.
+                Explore the Formula One season.
+            </p>
+        </div>
+
+        <div class="races-hero-decoration">
+            <span>F1</span>
+        </div>
+    </section>
+
+
+    <!-- RACE CALENDAR SECTION -->
+    <section class="races-section">
+
+        <div class="races-section-header">
+
+            <div class="races-heading">
+                <span class="section-label">THE SEASON</span>
+                <h2>GRAND PRIX <span>CALENDAR</span></h2>
+                <p>Explore the races scheduled for each season.</p>
+            </div>
+
+            
+            <div class="races-controls">
+                <form method="GET" class="season-form">
+                    <label for="seasonSelect">SELECT SEASON</label>
+
+                    <select
+                        id="seasonSelect"
+                        name="season"
+                        onchange="this.form.submit()"
+                    >
+                        {% for season in available_seasons %}
+                            <option
+                                value="{{ season }}"
+                                {% if season == selected_season %}selected{% endif %}
+                            >
+                                {{ season }} SEASON
+                            </option>
+                        {% empty %}
+                            <option value="2026" selected>2026 SEASON</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+
+
+        </div>
+
+
+        <!-- RACE COUNT -->
+        <div class="races-overview">
+            <div class="race-count-box">
+                <span class="race-count-number">{{ race_count }}</span>
+                <span class="race-count-label">RACES IN SEASON</span>
+            </div>
+
+            <div class="race-count-line"></div>
+
+            <span class="race-season-label">
+                {{ selected_season }} CHAMPIONSHIP
+            </span>
+        </div>
+
+
+        <!-- RACE CARDS -->
+        {% if races %}
+
+            <div class="races-grid">
+
+                {% for race in races %}
+
+                    <article class="race-card">
+
+                        <div class="race-card-top">
+
+                            <span class="race-round">
+                                ROUND {{ race.round|stringformat:"02d" }}
+                            </span>
+
+                            <span class="race-status status-{{ race.status|lower }}">
+                                {{ race.get_status_display }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="race-card-content">
+
+                            <span class="race-country">
+                                {{ race.country }}
+                            </span>
+
+                            <h3>{{ race.race_name }}</h3>
+
+                            {% if race.circuit_image %}
+                                <div class="race-circuit-image">
+                                    <img
+                                        src="{{ race.circuit_image.url }}"
+                                        alt="{{ race.race_name }} circuit layout"
+                                        loading="lazy"
+                                    >
+                                </div>
+                            {% endif %}
+
+                            <div class="race-circuit">
+                                <span class="race-detail-icon">◎</span>
+                                {{ race.circuit }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="race-card-bottom">
+
+                            <div class="race-date">
+                                <span class="race-detail-label">RACE DATE</span>
+
+                                <strong>
+                                    {{ race.race_date|date:"d M Y" }}
+                                </strong>
+                            </div>
+
+                            {% comment %} <div class="race-time">
+                                <span class="race-detail-label">START TIME</span>
+
+                                <strong>
+                                    {{ race.race_date|date:"H:i" }}
+                                </strong>
+                            </div> {% endcomment %}
+
+                        </div>
+
+                        <div class="race-card-accent"></div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+            <div class="races-empty">
+
+                <div class="empty-icon">🏁</div>
+
+                <span class="section-label">NO RACES FOUND</span>
+
+                <h3>THE GRID IS WAITING</h3>
+
+                <p>
+                    There are currently no races added for the
+                    {{ selected_season }} season.
+                </p>
+
+                <p class="empty-admin-note">
+                    Add race records through Django Admin to display
+                    them here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+
+{% endblock %}
