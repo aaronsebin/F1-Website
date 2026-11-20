@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
@@ -14,112 +13,172 @@ Drivers | F1 Racing & Analytics
 
 <main class="drivers-page">
 
-    <!-- HERO SECTION -->
+    <!-- ================= DRIVERS HERO ================= -->
     <section class="drivers-hero">
-        <div class="drivers-eyebrow">
-            F1 / THE GRID
-        </div>
+        <div class="drivers-hero-label">F1 / THE GRID</div>
 
         <h1>
-            MEET THE <span>DRIVERS</span>
+            THE <span>DRIVERS</span>
         </h1>
 
         <p>
-            Discover the drivers competing in Formula 1.
-            Explore their racing numbers, nationalities and profiles.
+            Meet the drivers competing in the Formula 1 World Championship.
+            Select a driver to explore their profile and racing details.
         </p>
-
-        <div class="drivers-hero-line"></div>
     </section>
 
-    <!-- DRIVER DIRECTORY -->
+    <!-- ================= DRIVER GRID ================= -->
     <section class="drivers-section">
 
-        <div class="drivers-section-heading">
+        <div class="drivers-heading">
             <div>
-                <span class="section-label">DRIVER DIRECTORY</span>
-                <h2>THE GRID</h2>
+                <div class="section-label">2026 GRID</div>
+                <h2>DRIVER LINE-UP</h2>
             </div>
 
-            <div class="drivers-total">
-                <span>{{ drivers|length }}</span>
-                DRIVERS
+            <div class="drivers-count">
+                <span>{{ drivers|length }}</span> DRIVERS
             </div>
         </div>
 
         {% if drivers %}
-
             <div class="drivers-grid">
 
                 {% for driver in drivers %}
+                    <button
+                        type="button"
+                        class="driver-card team-{{ driver.teamId|slugify }}"
+                        data-driver-name="{{ driver.name }} {{ driver.surname }}"
+                        data-driver-team="{{ driver.teamId }}"
+                        data-driver-number="{{ driver.number|default:'—' }}"
+                        data-driver-nationality="{{ driver.nationality }}"
+                        data-driver-code="{{ driver.shortName }}"
+                        data-driver-image="{% static 'f1app/images/drivers/' %}{{ driver.driverId }}.webp"
+                        data-driver-url="{{ driver.url }}"
+                        aria-label="View {{ driver.name }} {{ driver.surname }} profile">
 
-                    <article class="driver-card team-{{ driver.teamId|slugify }}">
+                        <span class="driver-card-number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
 
-                        <div class="driver-card-top">
-                            <span class="driver-team">
-                                {{ driver.teamId|upper }}
-                            </span>
+                        <span class="driver-portrait-container">
+                            <span class="driver-glow"></span>
 
-                            <a href="{{ driver.url }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="driver-arrow"
-                            aria-label="View driver profile">
-                                ↗
-                            </a>
-
-                            <span class="driver-number">
+                            <span class="driver-racing-number">
                                 {{ driver.number|default:"—" }}
                             </span>
 
                             <img
-                                class="driver-image"
                                 src="{% static 'f1app/images/drivers/' %}{{ driver.driverId }}.webp"
                                 alt="{{ driver.name }} {{ driver.surname }}"
+                                class="driver-portrait"
                                 loading="lazy"
                             >
+                        </span>
 
-                            <div class="driver-bottom-fade"></div>
-                        </div>
+                        <span class="driver-card-info">
+                            <span class="driver-code">{{ driver.shortName }}</span>
 
-                        <div class="driver-card-content">
-                            <div class="driver-nationality">
-                                <span class="driver-accent"></span>
-                                {{ driver.nationality|upper }}
-                            </div>
+                            <span class="driver-card-name">
+                                {{ driver.name }} {{ driver.surname }}
+                            </span>
 
-                            <h3 class="driver-name">
-                                <span>{{ driver.name }}</span>
-                                <strong>{{ driver.surname }}</strong>
-                            </h3>
+                            <span class="driver-card-meta">
+                                {{ driver.teamId }} · {{ driver.nationality }}
+                            </span>
+                        </span>
 
-                            <div class="driver-card-footer">
-                                <span>FORMULA 1 · {{ driver.number|default:"—" }}</span>
-                                <span class="driver-code">
-                                    {{ driver.shortName }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="driver-card-accent"></div>
-
-                    </article>
-
+                        <span class="driver-card-arrow" aria-hidden="true">→</span>
+                    </button>
                 {% endfor %}
 
             </div>
-
         {% else %}
-
             <div class="drivers-message">
                 <h3>No drivers available</h3>
-                <p>Driver information is not available right now.</p>
+                <p>Add active driver records through Django Admin to populate this section.</p>
             </div>
-
         {% endif %}
 
     </section>
 
+    <!-- ================= FULL-SCREEN DRIVER SHOWCASE ================= -->
+    <div
+        class="driver-showcase"
+        id="driverShowcase"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="showcaseDriverName">
+
+        <div class="driver-showcase-backdrop" data-showcase-close></div>
+
+        <button
+            class="driver-showcase-close"
+            id="driverShowcaseClose"
+            type="button"
+            aria-label="Close driver showcase">
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="driver-showcase-content">
+
+            <div class="driver-showcase-topline">
+                <span>F1 / DRIVERS</span>
+                <span id="showcaseDriverCode">DRIVER PROFILE</span>
+            </div>
+
+            <div class="driver-showcase-title">
+                <p class="driver-showcase-eyebrow">2026 FORMULA ONE DRIVER</p>
+                <h2 id="showcaseDriverName">DRIVER NAME</h2>
+                <p id="showcaseDriverTeam">TEAM NAME</p>
+            </div>
+
+            <div class="driver-showcase-stage">
+                <div class="driver-showcase-glow"></div>
+                <div class="driver-showcase-grid-lines"></div>
+
+                <span class="driver-showcase-number" id="showcaseDriverNumber">00</span>
+
+                <img
+                    id="showcaseDriverImage"
+                    class="driver-showcase-image"
+                    src=""
+                    alt=""
+                >
+
+                <div class="driver-showcase-caption">
+                    <span id="showcaseDriverNationality">NATIONALITY</span>
+                    <span>F1 RACING & ANALYTICS</span>
+                </div>
+            </div>
+
+            <div class="driver-showcase-bottom">
+                <div>
+                    <span class="driver-showcase-bottom-label">THE GRID / 2026</span>
+                    <p id="showcaseDriverDescription">
+                        Explore the driver's Formula One profile.
+                    </p>
+                </div>
+
+                <a
+                    id="showcaseDriverProfile"
+                    class="driver-profile-link"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    OFFICIAL PROFILE ↗
+                </a>
+            </div>
+
+        </div>
+    </div>
+
 </main>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'f1app/js/driver-showcase.js' %}"></script>
 {% endblock %}
