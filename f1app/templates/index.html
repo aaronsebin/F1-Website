@@ -92,7 +92,7 @@ F1 Racing & Analytics
 
                 <span class="data-strip-tag">
                     <span class="live-dot"></span>
-                    LIVE DATA
+                    LOCAL DATA
                 </span>
 
                 <span class="data-strip-season">SEASON {{ season }}</span>
@@ -184,11 +184,7 @@ F1 Racing & Analytics
                     <div class="race-info">
                         <h3>No upcoming race found</h3>
                         <p class="circuit">
-                            {% if api_error %}
-                                Race data is temporarily unavailable.
-                            {% else %}
-                                Check the race calendar for more details.
-                            {% endif %}
+                            Race calendar information will be available here soon.
                         </p>
                     </div>
                 {% endif %}
@@ -295,7 +291,7 @@ F1 Racing & Analytics
                 {% empty %}
 
                 <p class="pulse-empty">
-                    Championship standings are temporarily unavailable.
+                    Championship standings will be displayed once local data is available.
                 </p>
 
                 {% endfor %}
@@ -365,8 +361,8 @@ F1 Racing & Analytics
                             {% endfor %}
                         </div>
                     {% else %}
-                        <h3 class="result-race-name">Results unavailable</h3>
-                        <p>Latest race data is temporarily unavailable.</p>
+                        <h3 class="result-race-name">No results available</h3>
+                        <p>Race results will appear here once local data is added.</p>
                     {% endif %}
 
                     <a href="{% url 'races' %}" class="panel-link">

@@ -47,17 +47,7 @@ Drivers | F1 Racing & Analytics
             </div>
         </div>
 
-        {% if api_error %}
-
-            <div class="drivers-message drivers-error">
-                <span class="message-icon">!</span>
-                <div>
-                    <h3>Unable to load drivers</h3>
-                    <p>{{ api_error }}</p>
-                </div>
-            </div>
-
-        {% elif drivers %}
+        {% if drivers %}
 
             <div class="drivers-grid">
 
@@ -127,12 +117,6 @@ Drivers | F1 Racing & Analytics
             </div>
 
         {% endif %}
-
-        <p class="drivers-source">
-            DRIVER DATA PROVIDED BY
-            <a href="https://f1api.dev/" target="_blank"
-               rel="noopener noreferrer">F1API.dev</a>
-        </p>
 
     </section>
 

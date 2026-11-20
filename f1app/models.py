@@ -6,18 +6,39 @@ from django.contrib.auth.models import User
 # ============================= DRIVER =============================
 
 class Driver(models.Model):
+
+    driver_id = models.SlugField(
+        max_length=100,
+        unique=True,
+        null=True,
+        blank=True
+    )
+
     name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100, blank=True)
+
     team = models.CharField(max_length=100)
     nationality = models.CharField(max_length=100)
+
+    number = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True
+    )
+
+    short_name = models.CharField(max_length=10, blank=True)
+    profile_url = models.URLField(blank=True)
+
     points = models.FloatField(default=0)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.surname}".strip()
 
 
 # ============================= RACE NOTES =============================
 
 class RaceNote(models.Model):
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

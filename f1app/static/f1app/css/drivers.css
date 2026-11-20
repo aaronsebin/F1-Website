@@ -502,10 +502,6 @@
     line-height: 1.6;
 }
 
-.drivers-error {
-    border-left: 3px solid #e10600;
-}
-
 .message-icon {
     display: flex;
     align-items: center;
@@ -521,28 +517,6 @@
     color: #e10600;
     font-weight: 900;
 }
-
-
-/* ---------- API ATTRIBUTION ---------- */
-
-.drivers-source {
-    margin: 30px 0 0;
-
-    color: rgba(255, 255, 255, 0.35);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-}
-
-.drivers-source a {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-}
-
-.drivers-source a:hover {
-    color: #e10600;
-}
-
 
 /* ---------- TABLET ---------- */
 

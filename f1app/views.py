@@ -7,163 +7,59 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
 from datetime import date
-from .models import RaceNote, UserProfile
+from .models import Driver, RaceNote, UserProfile
 from .forms import RaceNoteForm, UserProfileForm, UserUpdateForm
-from .f1_api import get_f1_data, F1APIError
+
 
 # ============================= HOME =============================
 
 def home(request):
-    from .f1_api import get_f1_data, F1APIError
+
+    active_drivers = Driver.objects.filter(is_active=True)
 
     context = {
-        "api_error": False,
         "season": date.today().year,
-        "driver_count": 0,
-        "team_count": 0,
-        "race_count": 0,
+        "driver_count": active_drivers.count(),
+        "team_count": active_drivers.values("team").distinct().count(),
+        "race_count": "—",
         "next_race": None,
+        "championship_standings": [],
         "latest_race": None,
     }
 
-    try:
-        # Get current-season drivers
-        driver_data = get_f1_data("current/drivers")
-        drivers = driver_data.get("drivers", [])
-
-        # Get current-season race calendar
-        calendar_data = get_f1_data("current")
-        races = calendar_data.get("races", calendar_data.get("race", []))
-
-        # Calculate counts
-        context["season"] = calendar_data.get("season", date.today().year)
-        context["driver_count"] = driver_data.get("total", len(drivers))
-        context["team_count"] = len({
-            driver.get("teamId")
-            for driver in drivers
-            if driver.get("teamId")
-        })
-        context["race_count"] = calendar_data.get("total", len(races))
-
-        # Find the next race
-        upcoming_races = []
-
-        for race in races:
-            schedule = race.get("schedule", {})
-            race_schedule = schedule.get("race", {})
-            race_date = race_schedule.get("date") or race.get("date")
-
-            if not race_date:
-                continue
-
-            try:
-                parsed_date = date.fromisoformat(race_date[:10])
-            except (ValueError, TypeError):
-                continue
-
-            if parsed_date >= date.today():
-                race["display_date"] = parsed_date.strftime("%d %b %Y")
-                upcoming_races.append((parsed_date, race))
-
-        if upcoming_races:
-            upcoming_races.sort(key=lambda item: item[0])
-            context["next_race"] = upcoming_races[0][1]
-            
-        
-        # Fetch current drivers' championship standings----------------------------------
-        try:
-            standings_data = get_f1_data(
-                "current/drivers-championship"
-            )
-
-            standings = standings_data.get(
-                "drivers_championship", []
-            )
-
-            # Keep the top four drivers
-            standings = sorted(
-                standings,
-                key=lambda item: (
-                    item.get("position") is None,
-                    item.get("position") or 999
-                )
-            )[:4]
-
-            max_points = max(
-                (float(item.get("points") or 0)
-                for item in standings),
-                default=0
-            )
-
-            for item in standings:
-                position = item.get("position")
-                item["display_position"] = (
-                    f"{position:02d}"
-                    if position is not None
-                    else "—"
-                )
-
-                points = float(item.get("points") or 0)
-                item["bar_pct"] = (
-                    points / max_points * 100
-                    if max_points else 0
-                )
-
-            context["championship_standings"] = standings
-
-        except F1APIError as error:
-            print("Standings API error:", error)
-            context["championship_standings"] = []
-
-
-        # Fetch the latest race results-----------------------------------------
-        try:
-            latest_data = get_f1_data("current/last/race")
-            latest_race = latest_data.get("races")
-
-            if isinstance(latest_race, dict):
-                results = latest_race.get("results", [])
-                latest_race["results"] = (
-                    results if isinstance(results, list) else []
-                )
-                context["latest_race"] = latest_race
-
-        except F1APIError as error:
-            print("Latest race API error:", error)
-
-    except F1APIError as error:
-        print("F1 API error:", error)
-        context["api_error"] = True
-
     return render(request, "index.html", context)
+
 
 # ============================= DRIVERS =============================
 
 def drivers(request):
-    try:
-        data = get_f1_data("current/drivers")
 
-        return render(
-            request,
-            "pages/drivers.html",
-            {
-                "drivers": data.get("drivers", []),
-                "api_error": None,
-            },
-        )
+    driver_records = Driver.objects.filter(
+        is_active=True
+    ).order_by("surname", "name")
 
-    except F1APIError:
-        return render(
-            request,
-            "pages/drivers.html",
-            {
-                "drivers": [],
-                "api_error": (
-                    "Formula 1 data is temporarily unavailable. "
-                    "Please try again later."
-                ),
-            },
-        )
+    drivers = []
+
+    for driver in driver_records:
+        drivers.append({
+            "driverId": driver.driver_id or "",
+            "name": driver.name,
+            "surname": driver.surname,
+            "teamId": driver.team,
+            "number": driver.number,
+            "nationality": driver.nationality,
+            "shortName": driver.short_name,
+            "url": driver.profile_url,
+        })
+
+    return render(
+        request,
+        "pages/drivers.html",
+        {
+            "drivers": drivers,
+            "api_error": None,
+        },
+    )
 
 
 # ============================= TEAMS =============================
@@ -459,7 +355,7 @@ def race_notes(request):
     notes = RaceNote.objects.filter(user=request.user)
 
     # Divide records into pages of 5
-    paginator = Paginator(notes, 5)
+    paginator = Paginator(notes, 2)
 
     # Get the requested page number from the URL
     page_number = request.GET.get('page')
