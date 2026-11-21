@@ -94,6 +94,7 @@ class Race(models.Model):
 
     race_name = models.CharField(max_length=150)
     circuit = models.CharField(max_length=150)
+    
     circuit_image = models.ImageField(
         upload_to="circuits/",
         blank=True,
