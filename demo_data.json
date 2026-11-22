@@ -1,0 +1,676 @@
+[
+{
+  "model": "f1app.driver",
+  "pk": 2,
+  "fields": {
+    "driver_id": "norris",
+    "name": "Lando",
+    "surname": "Norris",
+    "team": "McLaren",
+    "nationality": "United Kingdom",
+    "number": 1,
+    "short_name": "NOR",
+    "profile_url": "https://www.formula1.com/en/drivers/lando-norris",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 3,
+  "fields": {
+    "driver_id": "piastri",
+    "name": "Oscar",
+    "surname": "Piastri",
+    "team": "McLaren",
+    "nationality": "Australia",
+    "number": 81,
+    "short_name": "PIA",
+    "profile_url": "https://www.formula1.com/en/drivers/oscar-piastri",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 4,
+  "fields": {
+    "driver_id": "russell",
+    "name": "George",
+    "surname": "Russell",
+    "team": "Mercedes",
+    "nationality": "United Kingdom",
+    "number": 63,
+    "short_name": "RUS",
+    "profile_url": "https://www.formula1.com/en/drivers/george-russell",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 5,
+  "fields": {
+    "driver_id": "antonelli",
+    "name": "Andrea Kimi",
+    "surname": "Antonelli",
+    "team": "Mercedes",
+    "nationality": "Italy",
+    "number": 12,
+    "short_name": "ANT",
+    "profile_url": "https://www.formula1.com/en/drivers/kimi-antonelli",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 6,
+  "fields": {
+    "driver_id": "max-verstappen",
+    "name": "Max",
+    "surname": "Verstappen",
+    "team": "Red Bull Racing",
+    "nationality": "Netherlands",
+    "number": 3,
+    "short_name": "VER",
+    "profile_url": "https://www.formula1.com/en/drivers/max-verstappen",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 7,
+  "fields": {
+    "driver_id": "hadjar",
+    "name": "Isack",
+    "surname": "Hadjar",
+    "team": "Red Bull Racing",
+    "nationality": "France",
+    "number": 6,
+    "short_name": "HAD",
+    "profile_url": "https://www.formula1.com/en/drivers/isack-hadjar",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 8,
+  "fields": {
+    "driver_id": "leclerc",
+    "name": "Charles",
+    "surname": "Leclerc",
+    "team": "Ferrari",
+    "nationality": "Monaco",
+    "number": 16,
+    "short_name": "LEC",
+    "profile_url": "https://www.formula1.com/en/drivers/charles-leclerc",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 9,
+  "fields": {
+    "driver_id": "hamilton",
+    "name": "Lewis",
+    "surname": "Hamilton",
+    "team": "Ferrari",
+    "nationality": "United Kingdom",
+    "number": 44,
+    "short_name": "HAM",
+    "profile_url": "https://www.formula1.com/en/drivers/lewis-hamilton",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 10,
+  "fields": {
+    "driver_id": "albon",
+    "name": "Alexander",
+    "surname": "Albon",
+    "team": "Williams",
+    "nationality": "Thailand",
+    "number": 23,
+    "short_name": "ALB",
+    "profile_url": "https://www.formula1.com/en/drivers/alexander-albon",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 11,
+  "fields": {
+    "driver_id": "sainz",
+    "name": "Carlos",
+    "surname": "Sainz",
+    "team": "Williams",
+    "nationality": "Spain",
+    "number": 55,
+    "short_name": "SAI",
+    "profile_url": "https://www.formula1.com/en/drivers/carlos-sainz",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 12,
+  "fields": {
+    "driver_id": "lawson",
+    "name": "Liam",
+    "surname": "Lawson",
+    "team": "Racing Bulls",
+    "nationality": "New Zealand",
+    "number": 30,
+    "short_name": "LAW",
+    "profile_url": "https://www.formula1.com/en/drivers/liam-lawson",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 13,
+  "fields": {
+    "driver_id": "lindblad",
+    "name": "Arvid",
+    "surname": "Lindblad",
+    "team": "Racing Bulls",
+    "nationality": "United Kingdom",
+    "number": 41,
+    "short_name": "LIN",
+    "profile_url": "https://www.formula1.com/en/drivers/arvid-lindblad",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 14,
+  "fields": {
+    "driver_id": "alonso",
+    "name": "Fernando",
+    "surname": "Alonso",
+    "team": "Aston Martin",
+    "nationality": "Spain",
+    "number": 14,
+    "short_name": "ALO",
+    "profile_url": "https://www.formula1.com/en/drivers/fernando-alonso",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 15,
+  "fields": {
+    "driver_id": "stroll",
+    "name": "Lance",
+    "surname": "Stroll",
+    "team": "Aston Martin",
+    "nationality": "Canada",
+    "number": 18,
+    "short_name": "STR",
+    "profile_url": "https://www.formula1.com/en/drivers/lance-stroll",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 16,
+  "fields": {
+    "driver_id": "ocon",
+    "name": "Esteban",
+    "surname": "Ocon",
+    "team": "Haas",
+    "nationality": "France",
+    "number": 31,
+    "short_name": "OCO",
+    "profile_url": "https://www.formula1.com/en/drivers/esteban-ocon",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 17,
+  "fields": {
+    "driver_id": "bearman",
+    "name": "Oliver",
+    "surname": "Bearman",
+    "team": "Haas",
+    "nationality": "United Kingdom",
+    "number": 87,
+    "short_name": "BEA",
+    "profile_url": "https://www.formula1.com/en/drivers/oliver-bearman",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 18,
+  "fields": {
+    "driver_id": "hulkenberg",
+    "name": "Nico",
+    "surname": "Hülkenberg",
+    "team": "Audi",
+    "nationality": "Germany",
+    "number": 27,
+    "short_name": "HUL",
+    "profile_url": "https://www.formula1.com/en/drivers/nico-hulkenberg",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 19,
+  "fields": {
+    "driver_id": "bortoleto",
+    "name": "Gabriel",
+    "surname": "Bortoleto",
+    "team": "Audi",
+    "nationality": "Brazil",
+    "number": 5,
+    "short_name": "BOR",
+    "profile_url": "https://www.formula1.com/en/drivers/gabriel-bortoleto",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 20,
+  "fields": {
+    "driver_id": "gasly",
+    "name": "Pierre",
+    "surname": "Gasly",
+    "team": "Alpine",
+    "nationality": "France",
+    "number": 10,
+    "short_name": "GAS",
+    "profile_url": "https://www.formula1.com/en/drivers/pierre-gasly",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 21,
+  "fields": {
+    "driver_id": "colapinto",
+    "name": "Franco",
+    "surname": "Colapinto",
+    "team": "Alpine",
+    "nationality": "Argentina",
+    "number": 43,
+    "short_name": "COL",
+    "profile_url": "https://www.formula1.com/en/drivers/franco-colapinto",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 22,
+  "fields": {
+    "driver_id": "perez",
+    "name": "Sergio",
+    "surname": "Pérez",
+    "team": "Cadillac",
+    "nationality": "Mexico",
+    "number": 11,
+    "short_name": "PER",
+    "profile_url": "https://www.formula1.com/en/drivers/sergio-perez",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.driver",
+  "pk": 23,
+  "fields": {
+    "driver_id": "bottas",
+    "name": "Valtteri",
+    "surname": "Bottas",
+    "team": "Cadillac",
+    "nationality": "Finland",
+    "number": 77,
+    "short_name": "BOT",
+    "profile_url": "https://www.formula1.com/en/drivers/valtteri-bottas",
+    "points": 0.0,
+    "is_active": true
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 1,
+  "fields": {
+    "season": 2026,
+    "round": 1,
+    "race_name": "Australian Grand Prix",
+    "circuit": "Albert Park Grand Prix Circuit",
+    "circuit_image": "circuits/01_australian_grand_prix.png",
+    "country": "Australia",
+    "race_date": "2026-03-08T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 2,
+  "fields": {
+    "season": 2026,
+    "round": 2,
+    "race_name": "Chinese Grand Prix",
+    "circuit": "Shanghai International Circuit",
+    "circuit_image": "circuits/02_chinese_grand_prix.png",
+    "country": "China",
+    "race_date": "2026-03-15T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 3,
+  "fields": {
+    "season": 2026,
+    "round": 3,
+    "race_name": "Japanese Grand Prix",
+    "circuit": "Suzuka International Racing Course",
+    "circuit_image": "circuits/03_japanese_grand_prix.png",
+    "country": "Japan",
+    "race_date": "2026-03-29T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 4,
+  "fields": {
+    "season": 2026,
+    "round": 4,
+    "race_name": "Miami Grand Prix",
+    "circuit": "Miami International Autodrome",
+    "circuit_image": "circuits/04_miami_grand_prix.png",
+    "country": "United States",
+    "race_date": "2026-05-03T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 5,
+  "fields": {
+    "season": 2026,
+    "round": 5,
+    "race_name": "Canadian Grand Prix",
+    "circuit": "Circuit Gilles-Villeneuve",
+    "circuit_image": "circuits/05_canadian_grand_prix.png",
+    "country": "Canada",
+    "race_date": "2026-05-24T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 6,
+  "fields": {
+    "season": 2026,
+    "round": 6,
+    "race_name": "Monaco Grand Prix",
+    "circuit": "Circuit de Monaco",
+    "circuit_image": "circuits/06_monaco_grand_prix.png",
+    "country": "Monaco",
+    "race_date": "2026-06-07T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 7,
+  "fields": {
+    "season": 2026,
+    "round": 7,
+    "race_name": "Barcelona-Catalunya Grand Prix",
+    "circuit": "Circuit de Barcelona-Catalunya",
+    "circuit_image": "circuits/07_barcelona_catalunya_grand_prix.png",
+    "country": "Spain",
+    "race_date": "2026-06-14T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 8,
+  "fields": {
+    "season": 2026,
+    "round": 8,
+    "race_name": "Austrian Grand Prix",
+    "circuit": "Red Bull Ring",
+    "circuit_image": "circuits/08_austrian_grand_prix.png",
+    "country": "Austria",
+    "race_date": "2026-06-28T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 9,
+  "fields": {
+    "season": 2026,
+    "round": 9,
+    "race_name": "British Grand Prix",
+    "circuit": "Silverstone Circuit",
+    "circuit_image": "circuits/09_british_grand_prix.png",
+    "country": "United Kingdom",
+    "race_date": "2026-07-05T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 10,
+  "fields": {
+    "season": 2026,
+    "round": 10,
+    "race_name": "Belgian Grand Prix",
+    "circuit": "Circuit de Spa-Francorchamps",
+    "circuit_image": "circuits/10_belgian_grand_prix.png",
+    "country": "Belgium",
+    "race_date": "2026-07-19T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 11,
+  "fields": {
+    "season": 2026,
+    "round": 11,
+    "race_name": "Hungarian Grand Prix",
+    "circuit": "Hungaroring",
+    "circuit_image": "circuits/11_hungarian_grand_prix.png",
+    "country": "Hungary",
+    "race_date": "2026-07-26T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 12,
+  "fields": {
+    "season": 2026,
+    "round": 12,
+    "race_name": "Dutch Grand Prix",
+    "circuit": "Circuit Zandvoort",
+    "circuit_image": "circuits/12_dutch_grand_prix.png",
+    "country": "Netherlands",
+    "race_date": "2026-08-23T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 13,
+  "fields": {
+    "season": 2026,
+    "round": 13,
+    "race_name": "Italian Grand Prix",
+    "circuit": "Autodromo Nazionale Monza",
+    "circuit_image": "circuits/13_italian_grand_prix.png",
+    "country": "Italy",
+    "race_date": "2026-09-06T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 14,
+  "fields": {
+    "season": 2026,
+    "round": 14,
+    "race_name": "Spanish Grand Prix",
+    "circuit": "Madring",
+    "circuit_image": "circuits/14_spanish_grand_prix.png",
+    "country": "Spain",
+    "race_date": "2026-09-13T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 15,
+  "fields": {
+    "season": 2026,
+    "round": 15,
+    "race_name": "Azerbaijan Grand Prix",
+    "circuit": "Baku City Circuit",
+    "circuit_image": "circuits/15_azerbaijan_grand_prix.png",
+    "country": "Azerbaijan",
+    "race_date": "2026-09-26T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 16,
+  "fields": {
+    "season": 2026,
+    "round": 16,
+    "race_name": "Bahrain Grand Prix in Malaysia",
+    "circuit": "Sepang International Circuit",
+    "circuit_image": "circuits/16_bahrain_grand_prix_malaysia.png",
+    "country": "Malaysia",
+    "race_date": "2026-10-04T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 17,
+  "fields": {
+    "season": 2026,
+    "round": 17,
+    "race_name": "Singapore Grand Prix",
+    "circuit": "Marina Bay Street Circuit",
+    "circuit_image": "circuits/17_singapore_grand_prix.png",
+    "country": "Singapore",
+    "race_date": "2026-10-11T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 18,
+  "fields": {
+    "season": 2026,
+    "round": 18,
+    "race_name": "United States Grand Prix",
+    "circuit": "Circuit of The Americas",
+    "circuit_image": "circuits/18_united_states_grand_prix.png",
+    "country": "United States",
+    "race_date": "2026-10-25T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 19,
+  "fields": {
+    "season": 2026,
+    "round": 19,
+    "race_name": "Mexico City Grand Prix",
+    "circuit": "Autodromo Hermanos Rodriguez",
+    "circuit_image": "circuits/19_mexico_city_grand_prix.png",
+    "country": "Mexico",
+    "race_date": "2026-11-01T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 20,
+  "fields": {
+    "season": 2026,
+    "round": 20,
+    "race_name": "São Paulo Grand Prix",
+    "circuit": "Autodromo Jose Carlos Pace",
+    "circuit_image": "circuits/20_sao_paulo_grand_prix.png",
+    "country": "Brazil",
+    "race_date": "2026-11-08T12:00:00Z",
+    "status": "COMPLETED"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 21,
+  "fields": {
+    "season": 2026,
+    "round": 21,
+    "race_name": "Las Vegas Grand Prix",
+    "circuit": "Las Vegas Strip Circuit",
+    "circuit_image": "circuits/21_las_vegas_grand_prix.png",
+    "country": "United States",
+    "race_date": "2026-11-21T12:00:00Z",
+    "status": "UPCOMING"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 22,
+  "fields": {
+    "season": 2026,
+    "round": 22,
+    "race_name": "Qatar Grand Prix",
+    "circuit": "Lusail International Circuit",
+    "circuit_image": "circuits/22_qatar_grand_prix.png",
+    "country": "Qatar",
+    "race_date": "2026-11-29T12:00:00Z",
+    "status": "UPCOMING"
+  }
+},
+{
+  "model": "f1app.race",
+  "pk": 23,
+  "fields": {
+    "season": 2026,
+    "round": 23,
+    "race_name": "Abu Dhabi Grand Prix",
+    "circuit": "Yas Marina Circuit",
+    "circuit_image": "circuits/23_abu_dhabi_grand_prix.png",
+    "country": "United Arab Emirates",
+    "race_date": "2026-12-06T12:00:00Z",
+    "status": "UPCOMING"
+  }
+}
+]
