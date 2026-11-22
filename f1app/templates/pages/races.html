@@ -114,13 +114,13 @@
                             <h3>{{ race.race_name }}</h3>
 
                             {% if race.circuit_image %}
-                                <div class="race-circuit-image">
-                                    <img
-                                        src="{{ race.circuit_image.url }}"
-                                        alt="{{ race.race_name }} circuit layout"
-                                        loading="lazy"
-                                    >
-                                </div>
+                            <div class="race-circuit-image">
+                                <img
+                                    src="{% static 'f1app/images/' %}{{ race.circuit_image.name }}"
+                                    alt="{{ race.race_name }} circuit layout"
+                                    loading="lazy"
+                                >
+                            </div>
                             {% endif %}
 
                             <div class="race-circuit">
